@@ -11,6 +11,7 @@
 		346AAB412DC2954900841272 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346AAB402DC2954900841272 /* ContentView.swift */; };
 		346AAB432DC2954B00841272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 346AAB422DC2954B00841272 /* Assets.xcassets */; };
 		346AAB462DC2954B00841272 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 346AAB452DC2954B00841272 /* Preview Assets.xcassets */; };
+		EBD2F4052DC296FF0041C7C0 /* BlobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2F4042DC296FF0041C7C0 /* BlobView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		346AAB402DC2954900841272 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		346AAB422DC2954B00841272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		346AAB452DC2954B00841272 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EBD2F4042DC296FF0041C7C0 /* BlobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlobView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				346AAB3E2DC2954900841272 /* gamApp.swift */,
 				346AAB402DC2954900841272 /* ContentView.swift */,
+				EBD2F4042DC296FF0041C7C0 /* BlobView.swift */,
 				346AAB422DC2954B00841272 /* Assets.xcassets */,
 				346AAB442DC2954B00841272 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBD2F4052DC296FF0041C7C0 /* BlobView.swift in Sources */,
 				346AAB412DC2954900841272 /* ContentView.swift in Sources */,
 				346AAB3F2DC2954900841272 /* gamApp.swift in Sources */,
 			);
