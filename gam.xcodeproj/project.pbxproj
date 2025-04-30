@@ -39,7 +39,6 @@
 		346AAB322DC2954900841272 = {
 			isa = PBXGroup;
 			children = (
-				EBD2F4062DC2974E0041C7C0 /* ShopView.swift */,
 				346AAB3D2DC2954900841272 /* gam */,
 				346AAB3C2DC2954900841272 /* Products */,
 			);
@@ -56,6 +55,7 @@
 		346AAB3D2DC2954900841272 /* gam */ = {
 			isa = PBXGroup;
 			children = (
+				EBD2F4062DC2974E0041C7C0 /* ShopView.swift */,
 				346AAB3E2DC2954900841272 /* gamApp.swift */,
 				346AAB402DC2954900841272 /* ContentView.swift */,
 				EBD2F4042DC296FF0041C7C0 /* BlobView.swift */,
