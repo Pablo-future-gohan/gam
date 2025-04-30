@@ -9,7 +9,7 @@ import SwiftUI
 import SpriteKit
 import Foundation
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class BlobView: SKScene, SKPhysicsContactDelegate {
     
     var blobSize: CGFloat = 25
     var eyeSize: CGFloat = 10
