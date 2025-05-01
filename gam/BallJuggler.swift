@@ -42,7 +42,7 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
         
 
         
-        ball = SKSpriteNode(imageNamed:"Image")
+        ball = SKSpriteNode(imageNamed:"soccer-ball-png-24")
         ball.size=CGSize(width: 100, height: 100)
         ball.position = CGPoint(x: size.width/2, y: 500)
         
@@ -80,7 +80,7 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
                 self.x+=1
                 if(self.x==3){
                     
-                    self.ball = SKSpriteNode(imageNamed:"Image")
+                    self.ball = SKSpriteNode(imageNamed:"soccer-ball-png-24")
                     self.ball.size=CGSize(width: 100, height: 100)
                     self.ball.position = CGPoint(x: self.size.width/2, y: 500)
                     
