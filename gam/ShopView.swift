@@ -12,9 +12,11 @@ struct ShopView: View {
         ZStack {
             Image("chalkbg")
                 .scaleEffect(1.52)
-            Text("BLOB SHOP")
-                .font(.custom("chalkduster", size: 60))
-                .foregroundStyle(.white)
+            VStack {
+                Text("BLOB SHOP")
+                    .font(.custom("chalkduster", size: 60))
+                    .foregroundStyle(.white)
+            }
         }
         .ignoresSafeArea()
     }
