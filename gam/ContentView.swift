@@ -8,7 +8,39 @@
 import SwiftUI
 import SpriteKit
 
+struct ButtonModifier: ViewModifier {
+    let x: CGFloat
+    let y: CGFloat
+    let w: CGFloat
+    let h: CGFloat
+    let text: String
+    func body(content: Content) -> some View {
+        content
+            .frame(width: w, height: h)
+            .background(
+                Text(text)
+                    .foregroundStyle(.black)
+                    .font(.custom("Chalkduster", size: 18))
+                    .frame(width: w, height: h)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(.green)
+                    )
+            )
+            .offset(x: x, y: y)
+    }
+}
+
+extension View{
+    func buttonMod(_ x: CGFloat = 0, _ y: CGFloat = 0, _ w: CGFloat = 100, _ h: CGFloat = 50, _ text: String) -> some View {
+        self.modifier(ButtonModifier(x: x, y: y, w: w, h: h, text: text))
+    }
+}
+
 struct ContentView: View {
+    
+    var money: Int = 0
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -21,29 +53,22 @@ struct ContentView: View {
                         .offset(y: -20)
                 }
                 label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 20)
-                            .frame(width: 110, height: 60)
-                        Text("The Shop")
-                            .foregroundStyle(.black)
-                            .font(.custom("Chalkduster", size: 18))
-                    }
+                    Rectangle()
+                        .fill(.clear)
                 }
-                .offset(x: -125, y: -390)
+                .buttonMod(-125, -370, 105, 90, "The Shop")
                 NavigationLink {
                     ShopView()
                         .offset(y: -20)
                 }
                 label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 20)
-                            .frame(width: 110, height: 60)
-                        Text("Worlds")
-                            .foregroundStyle(.black)
-                            .font(.custom("Chalkduster", size: 18))
-                    }
+                    Rectangle()
+                        .fill(.clear)
                 }
-                .offset(x: 125, y: -390)
+                .buttonMod(125, -370, 105, 90, "Worlds")
+                Rectangle()
+                    .fill(.clear)
+                    .buttonMod(0, -350, 100, 50, "$\(money)")
             }
         }
     }
