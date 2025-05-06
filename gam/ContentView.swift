@@ -59,7 +59,7 @@ struct ContentView: View {
                 .buttonMod(-125, -370, 105, 90, "The Shop")
                 NavigationLink {
                     ShopView()
-                        .offset(y: -20)
+                        .offset(y: -25)
                 }
                 label: {
                     Rectangle()
