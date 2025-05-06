@@ -19,6 +19,7 @@ class KnotsGame: SKScene {
     var timeLeft: Double = 60.0;
     var startTime: Double = 0.0;
     var score: Int = 0;
+    var scoreText: SKLabelNode = SKLabelNode(text: "0");
     var lose: Bool = false;
     
     
@@ -31,6 +32,13 @@ class KnotsGame: SKScene {
         addChild(timeText);
         
         createNewKnot();
+        
+        // timer label
+        scoreText.fontSize = 20;
+        scoreText.fontName = "Courier";
+        scoreText.position = CGPoint(x: frame.maxX - 30, y: frame.maxY - 30);
+        scoreText.horizontalAlignmentMode = .right;
+        addChild(scoreText);
     }
     
     override func didMove(to view: SKView) {
@@ -155,6 +163,7 @@ class KnotsGame: SKScene {
             // rerun code
             timeLeft += 30.0 / log(Double(score) + exp(1));
             score += 1;
+            scoreText.text = "\(score)";
             createNewKnot();
         }
     }
