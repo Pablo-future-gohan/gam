@@ -50,7 +50,6 @@ struct ContentView: View {
                 .ignoresSafeArea()
                 NavigationLink {
                     ShopView()
-                        .offset(y: -20)
                 }
                 label: {
                     Rectangle()
