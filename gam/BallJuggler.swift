@@ -11,6 +11,7 @@ import SpriteKit
 
 class BallJuggler: SKScene, SKPhysicsContactDelegate {
     
+    var onGameOver: (() -> Void)?;
     
     //just some variables I made
     var ball = SKSpriteNode()
@@ -232,7 +233,7 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
             score.text="Score:\(scoreVal)"
             addChild(score)
 
-            
+            onGameOver?();
         }
         
         else if contact.bodyA.node?.name == "Top" {

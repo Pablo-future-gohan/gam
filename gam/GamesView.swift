@@ -18,18 +18,23 @@ struct GamesView: View {
         }
         return scene;
     } // thanks chatgpt
+    var ballJuggler: SKScene {
+        let scene = BallJuggler(size: UIScreen.main.bounds.size);
+        scene.onGameOver = {
+            dismiss();
+        }
+        return scene;
+    } // thanks chatgpt
     var body: some View {
         NavigationView {
             ZStack {
-                if (backButton) {
-                    Button {
-                        dismiss();
-                    } label: {
-                        Rectangle()
-                            .fill(.clear)
-                    }
-                    .buttonMod(-120, -420, 100, 30, "Back")
+                Button {
+                    dismiss();
+                } label: {
+                    Rectangle()
+                        .fill(.clear)
                 }
+                .buttonMod(-120, -420, 100, 30, "Back")
                 NavigationLink {
                     SpriteView(scene: knots)
                         .ignoresSafeArea()
@@ -38,10 +43,16 @@ struct GamesView: View {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(0,0,100,30,"Knots")
-                .onDisappear() {
-                    backButton = false;
+                .buttonMod(0,0,150,30,"Knots")
+                NavigationLink {
+                    SpriteView(scene: ballJuggler)
+                        .ignoresSafeArea()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    Rectangle()
+                        .fill(.clear)
                 }
+                .buttonMod(0,-30,150,30,"Ball Juggler")
             }
         }
     }
