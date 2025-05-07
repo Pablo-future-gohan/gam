@@ -64,7 +64,7 @@ struct ContentView: View {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(125, -370, 105, 90, "Worlds")
+                .buttonMod(125, -370, 105, 90, "Games")
                 Rectangle()
                     .fill(.clear)
                     .buttonMod(0, -350, 100, 50, "$\(money)")
