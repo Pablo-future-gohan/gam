@@ -58,8 +58,8 @@ struct ContentView: View {
                 }
                 .buttonMod(-125, -370, 105, 90, "The Shop")
                 NavigationLink {
-                    ShopView()
-                        .offset(y: -25)
+                    GamesView()
+                        .navigationBarBackButtonHidden(true)
                 }
                 label: {
                     Rectangle()

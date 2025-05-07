@@ -6,10 +6,44 @@
 //
 
 import SwiftUI
+import SpriteKit
 
 struct GamesView: View {
+    @Environment(\.dismiss) public var dismiss;
+    @State var backButton: Bool = true;
+    var knots: SKScene {
+        let scene = KnotsGame(size: UIScreen.main.bounds.size);
+        scene.onGameOver = {
+            dismiss();
+        }
+        return scene;
+    } // thanks chatgpt
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            ZStack {
+                if (backButton) {
+                    Button {
+                        dismiss();
+                    } label: {
+                        Rectangle()
+                            .fill(.clear)
+                    }
+                    .buttonMod(-120, -420, 100, 30, "Back")
+                }
+                NavigationLink {
+                    SpriteView(scene: knots)
+                        .ignoresSafeArea()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    Rectangle()
+                        .fill(.clear)
+                }
+                .buttonMod(0,0,100,30,"Knots")
+                .onDisappear() {
+                    backButton = false;
+                }
+            }
+        }
     }
 }
 
