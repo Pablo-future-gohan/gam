@@ -55,7 +55,7 @@ struct ContentView: View {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(-125, -370, 105, 90, "The Shop")
+                .buttonMod(-125, -370, 105, 90, "Shop")
                 NavigationLink {
                     GamesView()
                         .navigationBarBackButtonHidden(true)
