@@ -26,9 +26,10 @@ class BallRollerScene: SKScene {
         manager.startAccelerometerUpdates();
         ball.position = CGPoint(x: bounds.midX, y: 20);
         addChild(ball);
-        timeText.position = CGPoint(x: bounds.midX, y: bounds.maxY - 50);
+        timeText.position = CGPoint(x: bounds.minX + 30, y: bounds.maxY - 40);
         timeText.fontSize = 20;
         timeText.fontName = "Courier";
+        timeText.horizontalAlignmentMode = .left;
         addChild(timeText);
     }
     
