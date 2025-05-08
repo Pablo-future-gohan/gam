@@ -25,6 +25,20 @@ struct GamesView: View {
         }
         return scene;
     } // thanks chatgpt
+    var whackAMole: SKScene {
+        let scene = WhackAMoleScene(size: UIScreen.main.bounds.size);
+        scene.onGameOver = {
+            dismiss();
+        }
+        return scene;
+    } // thanks chatgpt
+    var ballRoller: SKScene {
+        let scene = BallRollerScene(size: UIScreen.main.bounds.size);
+        scene.onGameOver = {
+            dismiss();
+        }
+        return scene;
+    } // thanks chatgpt
     var body: some View {
         NavigationView {
             ZStack {
@@ -52,7 +66,25 @@ struct GamesView: View {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(0,-30,150,30,"Ball Juggler")
+                .buttonMod(0,-30,150,30,"Ball Jugglin'")
+                NavigationLink {
+                    SpriteView(scene: whackAMole)
+                        .ignoresSafeArea()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    Rectangle()
+                        .fill(.clear)
+                }
+                .buttonMod(0,30,150,30,"Whack-A-Mole")
+                NavigationLink {
+                    SpriteView(scene: ballRoller)
+                        .ignoresSafeArea()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    Rectangle()
+                        .fill(.clear)
+                }
+                .buttonMod(0,60,150,30,"Ball Roller")
             }
         }
     }
