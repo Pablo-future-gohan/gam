@@ -8,23 +8,33 @@
 import SwiftUI
 import SpriteKit
 
+
 struct ButtonModifier: ViewModifier {
     let x: CGFloat
     let y: CGFloat
     let w: CGFloat
     let h: CGFloat
     let text: String
+    let buttonCol1 = Color(hue: 0.8, saturation: 1, brightness: 1)
+    let buttonCol2 = Color(hue: 0.75, saturation: 0.9, brightness: 0.65)
+    
     func body(content: Content) -> some View {
         content
             .frame(width: w, height: h)
             .background(
                 Text(text)
                     .foregroundStyle(.black)
-                    .font(.custom("Chalkduster", size: 18))
+                    .font(.custom("PixelEmulator", size: 18))
                     .frame(width: w, height: h)
                     .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.green)
+                        ZStack {
+                            Rectangle()
+
+                                .foregroundColor(buttonCol2)
+                                .offset(y: 15)
+                            Rectangle()
+                                .foregroundColor(buttonCol1)
+                        }
                     )
             )
             .offset(x: x, y: y)
@@ -39,7 +49,7 @@ extension View{
 
 struct ContentView: View {
     
-    var money: Int = 0
+    var money: Int = 5000
     
     var body: some View {
         NavigationView {

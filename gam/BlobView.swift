@@ -38,7 +38,7 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         blob.name = "blob"
         addChild(blob)
         
-        eyeRoot = CGPoint(x: size.width / 2 - 20, y: size.height / 2)
+        eyeRoot = CGPoint(x: size.width / 2 + eyeDist, y: size.height / 2)
         eye = SKShapeNode(circleOfRadius: eyeSize)
         eye.fillColor = .white
         eye.position = eyeRoot
@@ -52,7 +52,7 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         eye.name = "eye1"
         addChild(eye)
         
-        eyeRoot2 = CGPoint(x: size.width / 2 + 20, y: size.height / 2)
+        eyeRoot2 = CGPoint(x: size.width / 2 - eyeDist, y: size.height / 2)
         eye2 = SKShapeNode(circleOfRadius: eyeSize)
         eye2.fillColor = .white
         eye2.position = eyeRoot2
