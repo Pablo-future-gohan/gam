@@ -18,6 +18,7 @@
 		BED9C2B52DCD167400A762CA /* BallRollerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9C2B42DCD167400A762CA /* BallRollerScene.swift */; };
 		EBD2F4052DC296FF0041C7C0 /* BlobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2F4042DC296FF0041C7C0 /* BlobView.swift */; };
 		EBD2F4072DC2974E0041C7C0 /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2F4062DC2974E0041C7C0 /* ShopView.swift */; };
+		EBF210F62DCE6D9600C79BE2 /* StimOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF210F52DCE6D9600C79BE2 /* StimOut.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		EBD2F4042DC296FF0041C7C0 /* BlobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlobView.swift; sourceTree = "<group>"; };
 		EBD2F4062DC2974E0041C7C0 /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
 		EBF210F42DCBD2D200C79BE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EBF210F52DCE6D9600C79BE2 /* StimOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StimOut.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				3BCAEC452DCA785A00CEDAEF /* KnotsGame.swift */,
 				346AAB422DC2954B00841272 /* Assets.xcassets */,
 				346AAB442DC2954B00841272 /* Preview Content */,
+				EBF210F52DCE6D9600C79BE2 /* StimOut.swift */,
 			);
 			path = gam;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				EBD2F4052DC296FF0041C7C0 /* BlobView.swift in Sources */,
 				346AAB412DC2954900841272 /* ContentView.swift in Sources */,
 				EBD2F4072DC2974E0041C7C0 /* ShopView.swift in Sources */,
+				EBF210F62DCE6D9600C79BE2 /* StimOut.swift in Sources */,
 				BED9C2B52DCD167400A762CA /* BallRollerScene.swift in Sources */,
 				346AAB3F2DC2954900841272 /* gamApp.swift in Sources */,
 			);

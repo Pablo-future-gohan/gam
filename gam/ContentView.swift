@@ -23,15 +23,15 @@ struct ButtonModifier: ViewModifier {
             .frame(width: w, height: h)
             .background(
                 Text(text)
-                    .foregroundStyle(.black)
-                    .font(.custom("PixelEmulator", size: 18))
+                    .foregroundStyle(.white)
+                    .font(.custom("PixelEmulator", size: 24))
                     .frame(width: w, height: h)
                     .background(
                         ZStack {
                             Rectangle()
 
                                 .foregroundColor(buttonCol2)
-                                .offset(y: 15)
+                                .offset(y: 10)
                             Rectangle()
                                 .foregroundColor(buttonCol1)
                         }

@@ -13,6 +13,8 @@ struct ShopView: View {
     var boxSize: CGFloat = 100
     var spacing: CGFloat = 10
     
+    @State var ShopTabs = ["Colors", "Hats", "Decor"]
+    
     @State var ShopItems = [
         ["Red", "Blue", "Green"],
         ["Hat", "Chain"],
@@ -23,7 +25,7 @@ struct ShopView: View {
         ZStack {
             Image("chalkbg")
                 .scaleEffect(1.52)
-            ScrollView {
+            VStack {
                 Rectangle()
                     .frame(width: 1, height: 50)
                     .opacity(0)
@@ -40,21 +42,28 @@ struct ShopView: View {
                             tab = i
                         }
                         label: {
-                            Rectangle()
-                                .stroke(.white, lineWidth: 3)
-                                .frame(width: 100, height: 65)
-                                .padding(3)
+                            ZStack {
+                                Rectangle()
+                                    .stroke(.white, lineWidth: 3)
+                                    .frame(width: 100, height: 65)
+                                    .padding(3)
+                                Text(ShopTabs[i])
+                                    .frame(width: 100, height: 65)
+                                    .foregroundStyle(.white)
+                                    .font(.custom("Chalkduster", size: 22))
+                            }
                         }
                     }
                 }
                 Rectangle()
                     .stroke(.white, lineWidth: 3)
                     .frame(width: 350, height: 5)
-                ZStack {
-                    ForEach(0..<Int(ShopItems[tab].count)) {i in
-                        Button {
-                            tab = i
-                        }
+                ScrollView {
+                    ZStack {
+                        ForEach(0..<20) {i in
+                            Button {
+                                tab = i
+                            }
                         label: {
                             Rectangle()
                                 .stroke(.white, lineWidth: 3)
@@ -62,9 +71,11 @@ struct ShopView: View {
                                 .padding(3)
                         }
                         .offset(x: (boxSize + spacing) * CGFloat((i % 3) - 1),
-                            y: (boxSize + spacing) * CGFloat(Int(i / 3)))
-                        
+                                y: (boxSize + spacing) * CGFloat(Int(i / 3)))
+                            
+                        }
                     }
+                    .frame(width: 400, height: 100)
                 }
             }
         }

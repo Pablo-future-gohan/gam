@@ -24,9 +24,9 @@ class BallRollerScene: SKScene {
     
     override func sceneDidLoad() {
         manager.startAccelerometerUpdates();
-        ball.position = CGPoint(x: bounds.midX, y: 20);
+        ball.position = CGPoint(x: frame.midX, y: 20);
         addChild(ball);
-        timeText.position = CGPoint(x: bounds.minX + 30, y: bounds.maxY - 40);
+        timeText.position = CGPoint(x: frame.minX + 30, y: frame.maxY - 40);
         timeText.fontSize = 20;
         timeText.fontName = "Courier";
         timeText.horizontalAlignmentMode = .left;
@@ -81,13 +81,13 @@ class BallRollerScene: SKScene {
                 if (child.position.y < -50.0) {
                     child.removeFromParent();
                 } else if (child.intersects(ball) && (
-                    ball.contains(CGPoint(x: child.bounds.minX + child.position.x, y: child.bounds.maxY + child.position.y)) || // ball contains square topleft
-                    ball.contains(CGPoint(x: child.bounds.maxX + child.position.x, y: child.bounds.maxY + child.position.y)) || // ball contains square topright
-                    ball.contains(CGPoint(x: child.bounds.minX + child.position.x, y: child.bounds.minY + child.position.y)) || // ball contains square bottomleft
-                    ball.contains(CGPoint(x: child.bounds.maxX + child.position.x, y: child.bounds.minY + child.position.y)) || // ball contains square bottomright
-                    child.contains(CGPoint(x: ball.bounds.midX + ball.position.x, y: ball.bounds.maxY + ball.position.y)) || // square contains ball top
-                    child.contains(CGPoint(x: ball.bounds.minX + ball.position.x, y: ball.bounds.midY + ball.position.y)) || // square contains ball left
-                    child.contains(CGPoint(x: ball.bounds.maxX + ball.position.x, y: ball.bounds.midY + ball.position.y))    // square contains ball right
+                    ball.contains(CGPoint(x: child.frame.minX + child.position.x, y: child.frame.maxY + child.position.y)) || // ball contains square topleft
+                    ball.contains(CGPoint(x: child.frame.maxX + child.position.x, y: child.frame.maxY + child.position.y)) || // ball contains square topright
+                    ball.contains(CGPoint(x: child.frame.minX + child.position.x, y: child.frame.minY + child.position.y)) || // ball contains square bottomleft
+                    ball.contains(CGPoint(x: child.frame.maxX + child.position.x, y: child.frame.minY + child.position.y)) || // ball contains square bottomright
+                    child.contains(CGPoint(x: ball.frame.midX + ball.position.x, y: ball.frame.maxY + ball.position.y)) || // square contains ball top
+                    child.contains(CGPoint(x: ball.frame.minX + ball.position.x, y: ball.frame.midY + ball.position.y)) || // square contains ball left
+                    child.contains(CGPoint(x: ball.frame.maxX + ball.position.x, y: ball.frame.midY + ball.position.y))    // square contains ball right
                 )) {
                     /// TODO: make losing work, scoring system, etc.
                     backgroundColor = .red;
@@ -105,12 +105,12 @@ class BallRollerScene: SKScene {
     /// Creates a wall of obstacles.
     /// - Parameter halfScreens: how many half-widths of the screen away from the center the obstacles can spawn.
     func createObstacle(halfScreens: Double) {
-        let minX: CGFloat = bounds.midX + halfScreens * (bounds.minX - bounds.midX);
-        let maxX: CGFloat = bounds.midX + halfScreens * (bounds.maxX - bounds.midX);
+        let minX: CGFloat = frame.midX + halfScreens * (frame.minX - frame.midX);
+        let maxX: CGFloat = frame.midX + halfScreens * (frame.maxX - frame.midX);
         /// TODO: add spawn patterns to obstacles
         for _ in 0..<Int.random(in: Int(halfScreens * 2)...Int(halfScreens * 3)) {
             let obstacle: SKShapeNode = SKShapeNode(rectOf: CGSize(width: 50, height: 50));
-            obstacle.position = CGPoint(x: CGFloat.random(in: minX...maxX), y: bounds.maxY + 50 + CGFloat.random(in: 0...30));
+            obstacle.position = CGPoint(x: CGFloat.random(in: minX...maxX), y: frame.maxY + 50 + CGFloat.random(in: 0...30));
             obstacle.name = "obstacle";
             addChild(obstacle);
         }

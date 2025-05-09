@@ -9,7 +9,7 @@ import SwiftUI
 import SpriteKit
 import Foundation
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class StimOut: SKScene, SKPhysicsContactDelegate {
     
     var w = 40
     let h = 15
@@ -163,7 +163,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 particle.physicsBody?.collisionBitMask = 1 << i
                 particle.physicsBody?.categoryBitMask = 1 << i
                 particle.physicsBody?.contactTestBitMask = 1 << i
-                particle.physicsBody?.mass = 0.3 * randomSize 
+                particle.physicsBody?.mass = 0.3 * randomSize
                 addChild(particle)
                 particle.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -150 + (contact.bodyB.node?.physicsBody?.velocity.dx)! * 0.6...150 + (contact.bodyB.node?.physicsBody?.velocity.dx)! * 0.6), dy: 0))
                 particle.physicsBody?.applyImpulse(CGVector(dx: 0, dy: CGFloat.random(in: (contact.bodyB.node?.physicsBody?.velocity.dy)! * 0.4...(contact.bodyB.node?.physicsBody?.velocity.dy)! * 1.1)))
@@ -252,7 +252,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             particle.physicsBody?.angularVelocity = CGFloat.random(in: -40...40)
         }
     }
-    
-    
-    
 }

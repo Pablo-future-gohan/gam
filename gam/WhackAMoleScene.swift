@@ -33,12 +33,12 @@ class WhackAMoleScene: SKScene {
     var moles: [[SKShapeNode]] = [];
     
     override func sceneDidLoad() {
-        timeText.position = CGPoint(x: bounds.minX + 30, y: bounds.maxY - 40);
+        timeText.position = CGPoint(x: frame.minX + 30, y: frame.maxY - 40);
         timeText.fontSize = 20;
         timeText.fontName = "Courier";
         timeText.horizontalAlignmentMode = .left;
         addChild(timeText);
-        scoreText.position = CGPoint(x: bounds.maxX - 30, y: bounds.maxY - 40);
+        scoreText.position = CGPoint(x: frame.maxX - 30, y: frame.maxY - 40);
         scoreText.fontSize = 20;
         scoreText.fontName = "Courier";
         scoreText.horizontalAlignmentMode = .right;
