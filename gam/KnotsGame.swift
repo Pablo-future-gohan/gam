@@ -10,11 +10,12 @@ import SpriteKit
 
 class KnotsGame: SKScene {
     let yarnRadius: Double = 25.0;
+    var onGameOver: (() -> Void)?;
     var points: [SKNode] = [];
     var dragIdx: Int = -1;
     var lineys: [(Int, Int, SKNode)] = []; // Ints are indices from points[]
     var winning: Bool = false;
-    var timeText: SKLabelNode = SKLabelNode(text: "30.00");
+    var timeText: SKLabelNode = SKLabelNode(text: "60.00");
     var prevTime: Double = 0.0;
     var timeLeft: Double = 60.0;
     var startTime: Double = 0.0;
@@ -160,11 +161,15 @@ class KnotsGame: SKScene {
         }
         winning = win;
         if (winning) {
-            // rerun code
-            timeLeft += 30.0 / log(Double(score) + exp(1));
             score += 1;
             scoreText.text = "\(score)";
-            createNewKnot();
+            // rerun code
+            if (!lose) {
+                timeLeft += 30.0 / log(Double(score) + exp(1));
+                createNewKnot();
+            } else {
+                self.onGameOver?();
+            }
         }
     }
     

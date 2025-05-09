@@ -60,22 +60,21 @@ struct ContentView: View {
                 .ignoresSafeArea()
                 NavigationLink {
                     ShopView()
-                        .offset(y: -20)
                 }
                 label: {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(-125, -370, 105, 90, "The Shop")
+                .buttonMod(-125, -370, 105, 90, "Shop")
                 NavigationLink {
-                    ShopView()
-                        .offset(y: -25)
+                    GamesView()
+                        .navigationBarBackButtonHidden(true)
                 }
                 label: {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(125, -370, 105, 90, "Worlds")
+                .buttonMod(125, -370, 105, 90, "Games")
                 Rectangle()
                     .fill(.clear)
                     .buttonMod(0, -350, 100, 50, "$\(money)")
