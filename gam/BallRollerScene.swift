@@ -81,19 +81,19 @@ class BallRollerScene: SKScene {
                 if (child.position.y < -50.0) {
                     child.removeFromParent();
                 } else if (child.intersects(ball) && (
-                    ball.contains(CGPoint(x: child.frame.minX + child.position.x, y: child.frame.maxY + child.position.y)) || // ball contains square topleft
-                    ball.contains(CGPoint(x: child.frame.maxX + child.position.x, y: child.frame.maxY + child.position.y)) || // ball contains square topright
-                    ball.contains(CGPoint(x: child.frame.minX + child.position.x, y: child.frame.minY + child.position.y)) || // ball contains square bottomleft
-                    ball.contains(CGPoint(x: child.frame.maxX + child.position.x, y: child.frame.minY + child.position.y)) || // ball contains square bottomright
-                    child.contains(CGPoint(x: ball.frame.midX + ball.position.x, y: ball.frame.maxY + ball.position.y)) || // square contains ball top
-                    child.contains(CGPoint(x: ball.frame.minX + ball.position.x, y: ball.frame.midY + ball.position.y)) || // square contains ball left
-                    child.contains(CGPoint(x: ball.frame.maxX + ball.position.x, y: ball.frame.midY + ball.position.y))    // square contains ball right
+                    ball.contains(CGPoint(x: child.frame.minX, y: child.frame.maxY)) || // ball contains square topleft
+                    ball.contains(CGPoint(x: child.frame.maxX, y: child.frame.maxY)) || // ball contains square topright
+                    ball.contains(CGPoint(x: child.frame.minX, y: child.frame.minY)) || // ball contains square bottomleft
+                    ball.contains(CGPoint(x: child.frame.maxX, y: child.frame.minY)) || // ball contains square bottomright
+                    child.contains(CGPoint(x: ball.frame.midX, y: ball.frame.maxY)) || // square contains ball top
+                    child.contains(CGPoint(x: ball.frame.minX, y: ball.frame.midY)) || // square contains ball left
+                    child.contains(CGPoint(x: ball.frame.maxX, y: ball.frame.midY))    // square contains ball right
                 )) {
                     /// TODO: make losing work, scoring system, etc.
                     backgroundColor = .red;
+                    onGameOver?();
                     startTime = timeElapsed; // how long you lasted
                     lose = true;
-                    onGameOver?();
                 }
             }
         }
