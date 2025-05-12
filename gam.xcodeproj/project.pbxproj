@@ -77,10 +77,10 @@
 				BED9C2B22DCBD7DF00A762CA /* WhackAMoleScene.swift */,
 				346AAB4C2DC2984800841272 /* BallJuggler.swift */,
 				EBD2F4042DC296FF0041C7C0 /* BlobView.swift */,
+				EBF210F52DCE6D9600C79BE2 /* StimOut.swift */,
 				3BCAEC452DCA785A00CEDAEF /* KnotsGame.swift */,
 				346AAB422DC2954B00841272 /* Assets.xcassets */,
 				346AAB442DC2954B00841272 /* Preview Content */,
-				EBF210F52DCE6D9600C79BE2 /* StimOut.swift */,
 			);
 			path = gam;
 			sourceTree = "<group>";
