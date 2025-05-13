@@ -100,7 +100,7 @@ class WhackAMoleScene: SKScene {
                         moleTimes[i][j] -= deltaTime;
                     } else {
                         if (moleStates[i][j] == 1) {
-                            timeLeft -= pow(timeElapsed, 0.05);
+                            timeLeft -= pow(timeElapsed, 0.1);
                         }
                         moleStates[i][j] = 0;
                         moleTimes[i][j] = 0.0;
@@ -112,7 +112,7 @@ class WhackAMoleScene: SKScene {
             // mole summon logic
             if (summonTime <= 0.0) {
                 var keepSummoning: Bool = true;
-                summonTime = pow(Double.random(in: 0.0..<1.0), 0.3) * 2.6 / pow(timeElapsed + 1.0, 0.05);
+                summonTime = pow(Double.random(in: 0.0..<1.0), 0.3) * 2.6 / pow(timeElapsed + 1.0, 0.1);
                 while (keepSummoning) {
                     var moleRow: Int = Int.random(in: 0..<MOLE_ROWS);
                     var moleCol: Int = Int.random(in: 0..<MOLE_COLS);
@@ -126,11 +126,11 @@ class WhackAMoleScene: SKScene {
                     if (counter < 100) {
                         if (Double.random(in: 0.0..<1.0) < 0.88) {
                             moleStates[moleRow][moleCol] = 1;
-                            moleTimes[moleRow][moleCol] = Double.random(in: 0.75..<1.5) / pow(timeElapsed + 1.0, 0.05);
+                            moleTimes[moleRow][moleCol] = Double.random(in: 0.75..<1.5) / pow(timeElapsed + 1.0, 0.1);
                             moles[moleRow][moleCol].fillColor = .red;
                         } else {
                             moleStates[moleRow][moleCol] = 2;
-                            moleTimes[moleRow][moleCol] = Double.random(in: 3.0..<5.0) / pow(timeElapsed + 1.0, 0.05);
+                            moleTimes[moleRow][moleCol] = Double.random(in: 3.0..<5.0) / pow(timeElapsed + 1.0, 0.1);
                             moles[moleRow][moleCol].fillColor = .blue;
                             summonTime *= 0.99;
                         }
@@ -158,7 +158,7 @@ class WhackAMoleScene: SKScene {
                     if (moleStates[i][j] == 1) {
                         score += 1;
                         scoreText.text = "\(score)";
-                        timeLeft += 2.0 / pow(timeElapsed + 1.0, 0.05);
+                        timeLeft += 2.0 / pow(timeElapsed + 1.0, 0.1);
                     } else {
                         AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {   }
                         timeLeft -= 4.0 * sqrt(timeElapsed);

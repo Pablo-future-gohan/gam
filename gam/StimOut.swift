@@ -10,7 +10,7 @@ import SpriteKit
 import Foundation
 
 class StimOut: SKScene, SKPhysicsContactDelegate {
-    
+    var onGameOver: (() -> Void)?;
     
     //bunch of important variables
     var w = 40
@@ -83,7 +83,7 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
         
         
         //this ground is used to delete the particles to not have a bunch of them falling and slowing the game down
-        particleGround.physicsBody=SKPhysicsBody(edgeFrom: CGPoint(x: frame.minX, y: frame.minY-100), to: CGPoint(x: frame.maxX, y: frame.minY-100))
+        particleGround.physicsBody=SKPhysicsBody(edgeFrom: CGPoint(x: frame.minX-1000, y: frame.minY-100), to: CGPoint(x: frame.maxX+1000, y: frame.minY-100))
         particleGround.physicsBody?.collisionBitMask = 0b1111111111111111111111111111111
         particleGround.physicsBody?.contactTestBitMask = 0b1111111111111111111111111111111
         particleGround.physicsBody?.categoryBitMask = 0b1111111111111111111111111111111
@@ -205,6 +205,7 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
                     label.text = "Dropped The Ball :("
                     label.fontColor = UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 0.5)
                     scoreLabel.fontColor = UIColor(red: 1, green: 0.3, blue: 0.3, alpha: 0.3)
+                    onGameOver?();
                 }
                 
                 for i in 2...30 {
@@ -341,6 +342,7 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
             particle.physicsBody?.categoryBitMask = 1 << i
             particle.physicsBody?.contactTestBitMask = 1 << i
             particle.physicsBody?.mass = 0.3 * randomSize
+            particle.name = "particle";
             ball.physicsBody?.allowsRotation = true
             addChild(particle)
             particle.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -310...310), dy: CGFloat.random(in: -300...300)))

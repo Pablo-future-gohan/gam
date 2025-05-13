@@ -39,6 +39,13 @@ struct GamesView: View {
         }
         return scene;
     } // thanks chatgpt
+    var stimOut: SKScene {
+        let scene = StimOut(size: UIScreen.main.bounds.size);
+        scene.onGameOver = {
+            dismiss();
+        }
+        return scene;
+    } // thanks chatgpt
     var body: some View {
         NavigationView {
             ZStack {
@@ -48,7 +55,7 @@ struct GamesView: View {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(-120, -420, 100, 30, "Back")
+                .buttonMod(-120, -410, 100, 30, "Back")
                 NavigationLink {
                     SpriteView(scene: knots)
                         .ignoresSafeArea()
@@ -57,7 +64,16 @@ struct GamesView: View {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(0,0,150,30,"Knots")
+                .buttonMod(0,90,180,30,"Knots")
+                NavigationLink {
+                    SpriteView(scene: stimOut)
+                        .ignoresSafeArea()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    Rectangle()
+                        .fill(.clear)
+                }
+                .buttonMod(0,45,180,30,"Stim Out")
                 NavigationLink {
                     SpriteView(scene: ballJuggler)
                         .ignoresSafeArea()
@@ -66,7 +82,7 @@ struct GamesView: View {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(0,-30,150,30,"Ball Jugglin'")
+                .buttonMod(0,0,180,30,"Ball Jugglin'")
                 NavigationLink {
                     SpriteView(scene: whackAMole)
                         .ignoresSafeArea()
@@ -75,7 +91,7 @@ struct GamesView: View {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(0,30,150,30,"Whack-A-Mole")
+                .buttonMod(0,-45,180,30,"Whack-A-Mole")
                 NavigationLink {
                     SpriteView(scene: ballRoller)
                         .ignoresSafeArea()
@@ -84,7 +100,7 @@ struct GamesView: View {
                     Rectangle()
                         .fill(.clear)
                 }
-                .buttonMod(0,60,150,30,"Ball Roller")
+                .buttonMod(0,-90,180,30,"Ball Roller")
             }
         }
     }

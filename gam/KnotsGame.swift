@@ -54,14 +54,14 @@ class KnotsGame: SKScene {
         
         let deltaTime: Double = currentTime - prevTime;
         timeLeft -= deltaTime;
+        timeText.text = String(format: "%.2f", timeLeft);
         
         if (timeLeft <= 0.0) {
             timeLeft = 0.0;
             lose = true;
+            timeText.text = "LAST ONE";
         }
             
-        timeText.text = String(format: "%.2f", timeLeft);
-        
         prevTime = currentTime;
     }
     
