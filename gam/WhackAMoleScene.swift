@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SpriteKit
+import AudioToolbox
 
 class WhackAMoleScene: SKScene {
     var onGameOver: (() -> Void)?;
@@ -159,6 +160,7 @@ class WhackAMoleScene: SKScene {
                         scoreText.text = "\(score)";
                         timeLeft += 2.0 / pow(timeElapsed + 1.0, 0.05);
                     } else {
+                        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {   }
                         timeLeft -= 4.0 * sqrt(timeElapsed);
                     }
                     moleStates[i][j] = 0;

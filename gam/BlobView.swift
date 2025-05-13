@@ -95,6 +95,10 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         
         edge = SKSpriteNode()
         edge.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        edge.physicsBody?.collisionBitMask = 1
+        edge.physicsBody?.categoryBitMask = 1
+        edge.physicsBody?.contactTestBitMask = 1
+        
         addChild(edge)
         
     }
@@ -120,9 +124,9 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
                                              dy: k * -1.0 * (eye.position.y - blob.position.y - yOffset)))
         eye2.physicsBody?.applyForce(CGVector(dx: k * -1.0 * (eye2.position.x - blob.position.x + xOffset),
                                              dy: k * -1.0 * (eye2.position.y - blob.position.y + yOffset)))
-        pupil1.physicsBody?.applyForce(CGVector(dx: j * -1.0 * (pupil1.position.x - blob.position.x - xOffset),
+        pupil1.physicsBody?.applyForce(CGVector(dx: j * -1.0 * (pupil1.position.x - blob.position.x - xOffset * 0.935),
                                                 dy: j * -1.0 * (pupil1.position.y - blob.position.y - yOffset)))
-        pupil2.physicsBody?.applyForce(CGVector(dx: j * -1.0 * (pupil2.position.x - blob.position.x + xOffset),
+        pupil2.physicsBody?.applyForce(CGVector(dx: j * -1.0 * (pupil2.position.x - blob.position.x + xOffset * 0.935),
                                                 dy: j * -1.0 * (pupil2.position.y - blob.position.y + yOffset)))
     }
 
