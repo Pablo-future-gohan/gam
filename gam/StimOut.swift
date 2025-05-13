@@ -11,6 +11,8 @@ import Foundation
 
 class StimOut: SKScene, SKPhysicsContactDelegate {
     
+    
+    //bunch of important variables
     var w = 40
     let h = 15
     let space = 2
@@ -21,7 +23,7 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
     var ball = SKShapeNode(circleOfRadius: 15.0)
     var block = SKSpriteNode(color: .blue, size: CGSize(width: 40, height: 15))
     var particle = SKShapeNode(circleOfRadius: 5.0)
-    var paddle = SKShapeNode(rectOf: CGSize(width: 80, height: 15), cornerRadius: 10)
+    var paddle = SKShapeNode(rectOf: CGSize(width: 100, height: 15), cornerRadius: 10)
     var score: Int = 0
     var ballCount = 0
     var pulseTimer = 0
@@ -29,21 +31,67 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
     let blockSpeed = 0.2
     var row = 12
     var canMakeRow = true
+    var ground = SKNode()
+    var particleGround = SKNode()
     
     override func sceneDidLoad() {
-        let ground = SKNode()
         w = (Int(size.width) - space * 2) / 8
         ball = SKShapeNode(circleOfRadius: ballSize)
         block = SKSpriteNode(color: .blue, size: CGSize(width: w, height: h))
         
-        ground.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        
+        
+        
+        //This makes all the edges
+        let topLeft = CGPoint(x: frame.minX, y: frame.maxY)
+        let topRight = CGPoint(x: frame.maxX, y: frame.maxY)
+        let bottomLeft = CGPoint(x: frame.minX, y: frame.minY)
+        let bottomRight = CGPoint(x: frame.maxX, y: frame.minY)
+        
+        
+
+        let top = SKNode()
+        top.physicsBody = SKPhysicsBody(edgeFrom: topLeft, to: topRight)
+        top.physicsBody?.node?.name = "Top"
+        top.physicsBody?.contactTestBitMask = 1
+        top.physicsBody?.collisionBitMask = 1
+        addChild(top)
+        
+        let left = SKNode()
+        left.physicsBody = SKPhysicsBody(edgeFrom: topLeft, to: bottomLeft)
+        left.physicsBody?.node?.name = "Left"
+        left.physicsBody?.contactTestBitMask = 1
+        left.physicsBody?.collisionBitMask = 1
+        addChild(left)
+        
+        let right = SKNode()
+        right.physicsBody = SKPhysicsBody(edgeFrom: topRight, to: bottomRight)
+        right.physicsBody?.node?.name = "Right"
+        right.physicsBody?.contactTestBitMask = 1
+        right.physicsBody?.collisionBitMask = 1
+        addChild(right)
+        
+        
+        ground.physicsBody=SKPhysicsBody(edgeFrom: bottomLeft, to: bottomRight)
         ground.physicsBody?.collisionBitMask = mainCategory
         ground.physicsBody?.contactTestBitMask = mainCategory
         ground.physicsBody?.categoryBitMask = mainCategory
         ground.physicsBody?.node?.name = "ground"
         addChild(ground)
         
+        
+        
+        
+        //this ground is used to delete the particles to not have a bunch of them falling and slowing the game down
+        particleGround.physicsBody=SKPhysicsBody(edgeFrom: CGPoint(x: frame.minX, y: frame.minY-100), to: CGPoint(x: frame.maxX, y: frame.minY-100))
+        particleGround.physicsBody?.collisionBitMask = 0b1111111111111111111111111111111
+        particleGround.physicsBody?.contactTestBitMask = 0b1111111111111111111111111111111
+        particleGround.physicsBody?.categoryBitMask = 0b1111111111111111111111111111111
+        particleGround.physicsBody?.node?.name = "particleGround"
+        addChild(particleGround)
+        
         self.physicsWorld.contactDelegate = self
+        
         
         label.position = CGPoint(x: size.width / 2, y: size.height / 2 - 180)
         label.fontSize = 27
@@ -67,7 +115,7 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
 
         paddle.position = CGPoint(x: size.width / 2, y: 100)
         paddle.fillColor = .green
-        paddle.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 80, height: 15))
+        paddle.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 100, height: 15))
         paddle.physicsBody?.affectedByGravity = false
         paddle.physicsBody?.collisionBitMask = mainCategory
         paddle.physicsBody?.contactTestBitMask = mainCategory
@@ -82,23 +130,25 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody?.applyImpulse(CGVector(dx: -200 * CGFloat(ball.physicsBody?.mass ?? 1), dy: 450 * CGFloat(ball.physicsBody?.mass ?? 1)))
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
     
     override func update(_ currentTime: TimeInterval) {
-        print(ballCount)
+        
+        
+        
         time += 1
         pulseTimer += 1
         scoreLabel.zRotation = sin(CGFloat(time) / 50.0) * 0.1
         scoreLabel.fontSize = mapEase(val: CGFloat(pulseTimer), fromMin: 0.0, fromMax: 20.0, toMin: CGFloat(175.0 - (Double(score) * 0.5)), toMax: 250.0, exp: 0.25)
         scoreLabel.position = CGPoint(x: size.width / 2, y: size.height / 2 - 50 - (scoreLabel.fontSize * 0.25))
+        
         enumerateChildNodes(withName:"//*", using:
             { (node, stop) -> Void in
             if node.name?.prefix(5) == "block" && self.ballCount > 0 {
                     node.position.y -= self.blockSpeed
                 }
             })
+
+        
         if (Int(Double(time) * blockSpeed) % (h + space)) == 0 {
             if canMakeRow {
                 row += 1
@@ -117,7 +167,11 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         var randomSize: CGFloat
         
+        
+        //what happens if the ball hits a block
         if (contact.bodyA.node?.name == "ball" && contact.bodyB.node?.name?.prefix(5) == "block") {
+            
+            
             makeBlockParticles(childNode(withName: (contact.bodyB.node?.name)!)! as! SKSpriteNode)
             contact.bodyB.node?.removeFromParent()
             score += 1
@@ -141,37 +195,73 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        else if (((contact.bodyB.node?.name == "ball" && contact.bodyA.node?.name == "ground") ||
-                 (contact.bodyA.node?.name == "ball" && contact.bodyB.node?.name == "ground")) && contact.bodyB.node?.position.y ?? size.height < ballSize * 2) {
-            ballCount -= 1
-            if (ballCount == 0) {
-                label.text = "Dropped The Ball :("
-                label.fontColor = UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 0.5)
-                scoreLabel.fontColor = UIColor(red: 1, green: 0.3, blue: 0.3, alpha: 0.3)
-                paddle.fillColor = .red
-            }
-            for i in 2...30 {
-                randomSize = CGFloat.random(in: 2...7)
-                particle = SKShapeNode(circleOfRadius: randomSize)
-                particle.fillColor = .blue
-                particle.physicsBody = SKPhysicsBody(circleOfRadius: randomSize)
-                particle.physicsBody?.affectedByGravity = true
-                particle.position = CGPoint(x: (contact.bodyB.node?.position.x)! + CGFloat.random(in: -5...5), y: (contact.bodyB.node?.position.y)! + CGFloat.random(in: -5...5))
-                particle.physicsBody?.linearDamping = 0
-                particle.physicsBody?.angularDamping = 0
-                particle.physicsBody?.restitution = 0.7
-                particle.physicsBody?.collisionBitMask = 1 << i
-                particle.physicsBody?.categoryBitMask = 1 << i
-                particle.physicsBody?.contactTestBitMask = 1 << i
-                particle.physicsBody?.mass = 0.3 * randomSize
-                addChild(particle)
-                particle.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -150 + (contact.bodyB.node?.physicsBody?.velocity.dx)! * 0.6...150 + (contact.bodyB.node?.physicsBody?.velocity.dx)! * 0.6), dy: 0))
-                particle.physicsBody?.applyImpulse(CGVector(dx: 0, dy: CGFloat.random(in: (contact.bodyB.node?.physicsBody?.velocity.dy)! * 0.4...(contact.bodyB.node?.physicsBody?.velocity.dy)! * 1.1)))
-            }
+        
+        //what happens if a ball hits the ground
+        else if ((contact.bodyB.node?.name == "ball" && contact.bodyA.node?.name == "ground") ) {
+                ballCount -= 1
+                
+                
+                if (ballCount == 0) {
+                    label.text = "Dropped The Ball :("
+                    label.fontColor = UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 0.5)
+                    scoreLabel.fontColor = UIColor(red: 1, green: 0.3, blue: 0.3, alpha: 0.3)
+                }
+                
+                for i in 2...30 {
+                    
+                    randomSize = CGFloat.random(in: 2...7)
+                    particle = SKShapeNode(circleOfRadius: randomSize)
+                    particle.fillColor = .blue
+                    particle.physicsBody = SKPhysicsBody(circleOfRadius: randomSize)
+                    particle.physicsBody?.affectedByGravity = true
+                    particle.position = CGPoint(x: (contact.bodyB.node?.position.x) ?? 0 + CGFloat.random(in: -5...5), y: (contact.bodyB.node?.position.y) ?? 0 + CGFloat.random(in: -5...5))
+                    particle.physicsBody?.linearDamping = 0
+                    particle.physicsBody?.angularDamping = 0
+                    
+                    particle.physicsBody?.node?.name = "particle"
+
+                    particle.physicsBody?.restitution = 0.7
+                    particle.physicsBody?.collisionBitMask = 1 << i
+                    particle.physicsBody?.categoryBitMask = 1 << i
+                    particle.physicsBody?.contactTestBitMask = 1 << i
+                    
+
+                    particle.physicsBody?.mass = 0.3 * randomSize
+                    addChild(particle)
+                    
+
+                    //particle.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -150...150), dy: CGFloat.random(in: -10...1500)))
+                    
+                    particle.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -150 + (contact.bodyB.node?.physicsBody?.velocity.dx ?? CGFloat(0.0)) * 0.6...150 + (contact.bodyB.node?.physicsBody?.velocity.dx ?? CGFloat(0.0)) * 0.6), dy: 0))
+                    particle.physicsBody?.applyImpulse(CGVector(dx: 0, dy: CGFloat.random(in: (abs((contact.bodyB.node?.physicsBody?.velocity.dy)!)) * 0.4...(abs((contact.bodyB.node?.physicsBody?.velocity.dy)!)) * 1.1)))
+  
+            
+
+                }
+                contact.bodyB.node?.removeFromParent()
+            
+            
+        }
+        
+        
+        else{
+            
+        }
+        
+        
+        //what happens if a particle hits the lower ground
+        if (contact.bodyA.node?.name=="particle" && contact.bodyB.node?.name=="particleGround"){
+            contact.bodyA.node?.removeFromParent()
+        } else if (contact.bodyB.node?.name=="particle" && contact.bodyA.node?.name=="particleGround"){
             contact.bodyB.node?.removeFromParent()
+
+        } else {
+            
         }
     }
     
+    
+    //lets you move the paddle
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
         let location = touch.location(in: self)
@@ -179,12 +269,16 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
         paddle.position = CGPoint(x: location.x, y: paddle.position.y)
     }
     
+    
+    
+    //makes the ball
     func makeBall() {
+
         let ball = SKShapeNode(circleOfRadius: 15.0)
         ball.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ballSize * 2, height: ballSize * 2))
         ball.fillColor = .blue
         ball.position = CGPoint(x: size.width / 2, y: size.height / 2)
-        
+
         ball.physicsBody?.affectedByGravity = false
         ball.physicsBody?.restitution = 1.01
         ball.physicsBody?.linearDamping = 0
@@ -201,6 +295,7 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
         ballCount += 1
         
         ball.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -250.0 ... -150.0) * CGFloat(ball.physicsBody?.mass ?? 1), dy: 450 * CGFloat(ball.physicsBody?.mass ?? 1)))
+
     }
     
     func mapEase(val: CGFloat, fromMin: CGFloat, fromMax: CGFloat, toMin: CGFloat, toMax: CGFloat, exp: Double) -> CGFloat {
