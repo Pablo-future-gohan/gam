@@ -34,17 +34,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //This posts the score
         score.position = CGPoint(x: size.width/2, y: size.height/2+230)
 
+        
         score.fontSize = 60
         score.text="\(scoreVal)"
         addChild(score)
         
         makeBall()
         
-        midX = Double.random(in: 90...300)
-        midY = Double.random(in: 100...550)
-        
-        
-        ball.physicsBody?.applyImpulse(CGVector(dx: 0.1*(midX-ball.position.x), dy: 0.1*(midY-ball.position.y)))
         
     }
     
@@ -64,7 +60,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(ball.frame.contains(location))
         {
-            
+            ball.removeFromParent()
+            scoreVal+=1
+            makeBall()
         }
         
         
@@ -79,6 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball = SKSpriteNode(imageNamed:"RubberDuck")
         ball.size=CGSize(width: 100, height: 100)
         ball.physicsBody = SKPhysicsBody(circleOfRadius: 50)
+        ball.physicsBody?.affectedByGravity = false
 
         var startX=0.0
         var startY=0.0
@@ -103,6 +102,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         ball.position = CGPoint(x: startX, y: startY)
         addChild(ball)
+        
+        midX = Double.random(in: 100...frame.maxX-100)
+        midY = Double.random(in: 200...325)
+        
+        
+        ball.physicsBody?.applyImpulse(CGVector(dx: pow(Double(scoreVal), Double(1/7))*(midX-ball.position.x), dy: pow(Double(scoreVal), Double(1/7))*(midY-ball.position.y)))
+
+        
+        
         
         
     }
