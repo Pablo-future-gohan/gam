@@ -9,16 +9,21 @@ import SwiftUI
 
 struct ShopView: View {
     
+    @Environment(\.dismiss) public var dismiss;
+    
     @State var tab = 0
+    @State var selectedButton = -1
     var boxSize: CGFloat = 100
     var spacing: CGFloat = 10
+    var money: Int
+    let numButtons = 30
     
     @State var ShopTabs = ["Colors", "Hats", "Decor"]
     
     @State var ShopItems = [
-        ["Red", "Blue", "Green"],
-        ["Hat", "Chain"],
-        ["Chair", "Rope Swing"],
+        ["0Red", "0Blue", "0Green", "0Yellow", "0Purple", "0Orange"],
+        ["0Hat", "0Chain"],
+        ["0Chair", "0Rope Swing"],
     ]
     
     var body: some View {
@@ -26,9 +31,21 @@ struct ShopView: View {
             Image("chalkbg")
                 .scaleEffect(1.52)
             VStack {
-                Rectangle()
-                    .frame(width: 1, height: 50)
-                    .opacity(0)
+                HStack {
+                    Button {
+                        dismiss();
+                    }
+                    label: {
+                        Text("Back")
+                        .font(.custom("chalkduster", size: 25))
+                        .foregroundStyle(.white)
+                    }
+                    .offset(x: -85, y: 12)
+                    Text("$\(money)")
+                        .font(.custom("chalkduster", size: 25))
+                        .foregroundStyle(.white)
+                        .offset(x: 85, y: 12)
+                }
                 Text("BLOB SHOP")
                     .font(.custom("chalkduster", size: 60))
                     .foregroundStyle(.white)
@@ -40,6 +57,7 @@ struct ShopView: View {
                     ForEach(0..<3) { i in
                         Button {
                             tab = i
+                            selectedButton = -1
                         }
                         label: {
                             ZStack {
@@ -58,25 +76,47 @@ struct ShopView: View {
                 Rectangle()
                     .stroke(.white, lineWidth: 3)
                     .frame(width: 350, height: 5)
-                ScrollView {
-                    ZStack {
-                        ForEach(0..<20) {i in
-                            Button {
-                                tab = i
+                ZStack {
+                    ScrollView {
+                        ZStack {
+                            ForEach(0..<30) {i in
+                                Button {
+                                    selectedButton = (selectedButton == i) ? -1 : i
+                                }
+                            label: {
+                                Rectangle()
+                                    .stroke(.white, lineWidth: 3)
+                                    .frame(width: boxSize, height: boxSize)
+                                    .padding(3)
+                                    .background(
+                                        ZStack {
+                                            Rectangle()
+                                                .stroke((selectedButton == i) ? .white : .clear, lineWidth: 3)
+                                                .frame(width: boxSize * 0.9, height: boxSize * 0.9)
+                                            Text((i < ShopItems[tab].count) ? ShopItems[tab][i].dropFirst() : "Coming Soon")
+                                                .font(.custom("Chalkduster", size: 20))
+                                                .foregroundStyle(.white)
+                                        }
+                                    )
                             }
-                        label: {
-                            Rectangle()
-                                .stroke(.white, lineWidth: 3)
-                                .frame(width: boxSize, height: boxSize)
-                                .padding(3)
+                            .offset(x: (boxSize + spacing) * CGFloat((i % 3) - 1),
+                                    y: (boxSize + spacing) * CGFloat(Int(i / 3)))
+                                
+                            }
                         }
-                        .offset(x: (boxSize + spacing) * CGFloat((i % 3) - 1),
-                                y: (boxSize + spacing) * CGFloat(Int(i / 3)))
-                            
-                        }
+                        .frame(width: 400, height: 1200)
+                        .offset(y: -545)
                     }
-                    .frame(width: 400, height: 100)
                 }
+                .frame(width: 400, height: 540)
+                Rectangle()
+                    .stroke(.white, lineWidth: 3)
+                    .frame(width: 350, height: 5)
+                Text("hi")
+                    .font(.custom("Chalkduster", size: 40))
+                    .foregroundStyle(.white)
+                    .padding(-2)
+                
             }
         }
         .ignoresSafeArea()
@@ -84,5 +124,5 @@ struct ShopView: View {
 }
 
 #Preview {
-    ShopView()
+    ShopView(money: 300)
 }

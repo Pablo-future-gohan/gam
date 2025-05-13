@@ -59,7 +59,8 @@ struct ContentView: View {
                 }
                 .ignoresSafeArea()
                 NavigationLink {
-                    ShopView()
+                    ShopView(money: money)
+                        .navigationBarBackButtonHidden(true)
                 }
                 label: {
                     Rectangle()
