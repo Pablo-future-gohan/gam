@@ -9,7 +9,7 @@ import SwiftUI
 import SpriteKit
 
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class DuckHunt: SKScene, SKPhysicsContactDelegate {
     
     
     var ball = SKSpriteNode()
@@ -46,13 +46,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func update(_ currentTime: TimeInterval) {
-        
+        score.text="\(scoreVal)"
+
         
 
     }
     
     
     
+    //This is what happens when the person touches the duck
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
         let location = touch.location(in: self)
@@ -73,6 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
+    //this make the duck on a random part of the outside and then shoots it towards the middle 
     func makeBall(){
         ball = SKSpriteNode(imageNamed:"RubberDuck")
         ball.size=CGSize(width: 100, height: 100)
@@ -107,8 +110,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         midY = Double.random(in: 200...325)
         
         
-        ball.physicsBody?.applyImpulse(CGVector(dx: pow(Double(scoreVal), Double(1/7))*(midX-ball.position.x), dy: pow(Double(scoreVal), Double(1/7))*(midY-ball.position.y)))
+        if(scoreVal > 0){
+            ball.physicsBody?.applyImpulse(CGVector(dx: 0.5*pow(Double(scoreVal), Double(1/3))*(midX-ball.position.x), dy: 0.3*pow(Double(scoreVal), Double(1/4))*(midY-ball.position.y)))
+        } else{
+            ball.physicsBody?.applyImpulse(CGVector(dx: 0.1*(midX-ball.position.x), dy: 0.1*(midY-ball.position.y)))
 
+        }
         
         
         

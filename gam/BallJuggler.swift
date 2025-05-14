@@ -25,6 +25,24 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
     let score = SKLabelNode(text: "")
     var scoreVal = 0
     var x = 0
+    var button: SKNode! = nil
+    
+
+    
+    /*
+     
+     var button: SKNode! = nil
+     override func didMove(to view: SKView) {
+         // Create a simple red rectangle that's 100x44
+         button = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
+         // Put it in the center of the scene
+         button.position = CGPoint(x:self.frame.midX, y:self.frame.midY);
+         self.addChild(button)
+
+     
+     
+     
+     */
 
     
 
@@ -207,6 +225,10 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
             }
             
         }
+        
+        if button.frame.contains(location){
+            sceneDidLoad()
+        }
 
     }
     
@@ -233,7 +255,16 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
             score.text="Score:\(scoreVal)"
             addChild(score)
 
-            onGameOver?();
+            //onGameOver?();
+            
+            button = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
+            button.position = CGPoint(x:self.frame.midX, y:self.frame.midY);
+            self.addChild(button)
+            
+            
+            
+            
+            
         }
         
         else if contact.bodyA.node?.name == "Top" {
@@ -245,6 +276,9 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
         }
                     
     }
+    
+    
+    
     
     
     
