@@ -46,61 +46,91 @@ struct GamesView: View {
         }
         return scene;
     } // thanks chatgpt
+    var barrels: SKScene {
+        let scene = Barrels(size: UIScreen.main.bounds.size);
+        scene.onGameOver = {
+            dismiss();
+        }
+        return scene;
+    } // thanks chatgpt
     var body: some View {
         NavigationView {
             ZStack {
-                Button {
-                    dismiss();
-                } label: {
-                    Rectangle()
-                        .fill(.clear)
+                VStack(alignment: .leading) {
+                    Button {
+                        dismiss();
+                    } label: {
+                        Rectangle()
+                            .fill(.clear)
+                    }
+                    .buttonMod(0, 0, 100, 30, "Back")
+                    Spacer()
+                        .frame(maxWidth: .infinity)
                 }
-                .buttonMod(-120, -410, 100, 30, "Back")
-                NavigationLink {
-                    SpriteView(scene: knots)
-                        .ignoresSafeArea()
-                        .navigationBarBackButtonHidden(true)
-                } label: {
-                    Rectangle()
-                        .fill(.clear)
+                .padding(20)
+                .ignoresSafeArea()
+                VStack {
+                    NavigationLink {
+                        SpriteView(scene: knots)
+                            .ignoresSafeArea()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        Rectangle()
+                            .fill(.clear)
+                    }
+                    .buttonMod(0,0,180,30,"Knots")
+                    .padding(5)
+                    NavigationLink {
+                        SpriteView(scene: stimOut)
+                            .ignoresSafeArea()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        Rectangle()
+                            .fill(.clear)
+                    }
+                    .buttonMod(0,0,180,30,"Stim Out")
+                    .padding(5)
+                    NavigationLink {
+                        SpriteView(scene: ballJuggler)
+                            .ignoresSafeArea()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        Rectangle()
+                            .fill(.clear)
+                    }
+                    .buttonMod(0,0,180,30,"Ball Jugglin'")
+                    .padding(5)
+                    NavigationLink {
+                        SpriteView(scene: whackAMole)
+                            .ignoresSafeArea()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        Rectangle()
+                            .fill(.clear)
+                    }
+                    .buttonMod(0,0,180,30,"Whack-A-Mole")
+                    .padding(5)
+                    NavigationLink {
+                        SpriteView(scene: ballRoller)
+                            .ignoresSafeArea()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        Rectangle()
+                            .fill(.clear)
+                    }
+                    .buttonMod(0,0,180,30,"Ball Roller")
+                    .padding(5)
+                    NavigationLink {
+                        SpriteView(scene: barrels)
+                            .ignoresSafeArea()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        Rectangle()
+                            .fill(.clear)
+                    }
+                    .buttonMod(0,0,180,30,"Barrels")
+                    .padding(5)
                 }
-                .buttonMod(0,90,180,30,"Knots")
-                NavigationLink {
-                    SpriteView(scene: stimOut)
-                        .ignoresSafeArea()
-                        .navigationBarBackButtonHidden(true)
-                } label: {
-                    Rectangle()
-                        .fill(.clear)
-                }
-                .buttonMod(0,45,180,30,"Stim Out")
-                NavigationLink {
-                    SpriteView(scene: ballJuggler)
-                        .ignoresSafeArea()
-                        .navigationBarBackButtonHidden(true)
-                } label: {
-                    Rectangle()
-                        .fill(.clear)
-                }
-                .buttonMod(0,0,180,30,"Ball Jugglin'")
-                NavigationLink {
-                    SpriteView(scene: whackAMole)
-                        .ignoresSafeArea()
-                        .navigationBarBackButtonHidden(true)
-                } label: {
-                    Rectangle()
-                        .fill(.clear)
-                }
-                .buttonMod(0,-45,180,30,"Whack-A-Mole")
-                NavigationLink {
-                    SpriteView(scene: ballRoller)
-                        .ignoresSafeArea()
-                        .navigationBarBackButtonHidden(true)
-                } label: {
-                    Rectangle()
-                        .fill(.clear)
-                }
-                .buttonMod(0,-90,180,30,"Ball Roller")
             }
         }
     }

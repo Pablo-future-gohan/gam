@@ -11,7 +11,7 @@ import SpriteKit
 
 
 class Barrels: SKScene, SKPhysicsContactDelegate {
-    
+    var onGameOver: (() -> Void)?;
     
     //various variables
     var ball = SKSpriteNode()
@@ -166,9 +166,7 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
         
         
         //If the ball hits the top barrel
-        print("idk")
         if contact.bodyB.node?.name == "ball" {
-            print("ball!")
             
             if(contact.bodyA.node?.name == "barrel2")
             {
@@ -176,7 +174,6 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
                 label.text="\(score)"
 
                 //removes the ball and replaces the top barrel with barrel1
-                print("barrel")
                 balls.removeAll()
                 ball.removeFromParent()
                 barrel2.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
@@ -217,7 +214,7 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
                     label.fontSize = 100
                     label.text="Score: \(score)"
                     addChild(label)
-                    
+                    onGameOver?();
                 }
             }
             
