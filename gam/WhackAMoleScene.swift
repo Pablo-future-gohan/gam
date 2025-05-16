@@ -147,23 +147,24 @@ class WhackAMoleScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let first = touches.first else {return}
-        let location = first.location(in:self);
-        
-        for i in 0...(MOLE_ROWS - 1) {
-            for j in 0...(MOLE_COLS - 1) {
-                if (moles[i][j].contains(location) && moleStates[i][j] != 0) {
-                    moleTimes[i][j] = 0.0;
-                    moles[i][j].fillColor = .black;
-                    if (moleStates[i][j] == 1) {
-                        score += 1;
-                        scoreText.text = "\(score)";
-                        timeLeft += 2.0 / pow(timeElapsed + 1.0, 0.1);
-                    } else {
-                        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {   }
-                        timeLeft -= 4.0 * sqrt(timeElapsed);
+        for touch in touches {
+            let location = touch.location(in:self);
+            
+            for i in 0...(MOLE_ROWS - 1) {
+                for j in 0...(MOLE_COLS - 1) {
+                    if (moles[i][j].contains(location) && moleStates[i][j] != 0) {
+                        moleTimes[i][j] = 0.0;
+                        moles[i][j].fillColor = .black;
+                        if (moleStates[i][j] == 1) {
+                            score += 1;
+                            scoreText.text = "\(score)";
+                            timeLeft += 2.0 / pow(timeElapsed + 1.0, 0.1);
+                        } else {
+                            AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {   }
+                            timeLeft -= 4.0 * sqrt(timeElapsed);
+                        }
+                        moleStates[i][j] = 0;
                     }
-                    moleStates[i][j] = 0;
                 }
             }
         }

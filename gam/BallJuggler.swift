@@ -10,7 +10,6 @@ import SpriteKit
 
 
 class BallJuggler: SKScene, SKPhysicsContactDelegate {
-    
     var onGameOver: (() -> Void)?;
     
     //just some variables I made
@@ -25,37 +24,16 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
     let score = SKLabelNode(text: "")
     var scoreVal = 0
     var x = 0
-    var button: SKNode! = nil
+        
     
-
-    
-    /*
-     
-     var button: SKNode! = nil
-     override func didMove(to view: SKView) {
-         // Create a simple red rectangle that's 100x44
-         button = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
-         // Put it in the center of the scene
-         button.position = CGPoint(x:self.frame.midX, y:self.frame.midY);
-         self.addChild(button)
-
-     
-     
-     
-     */
-
-    
-
-   
-    
-    
-    
-    
-    
+    //these two variables are for the reset button and go home button
+    var reset: SKNode! = nil
+    let resetText = SKLabelNode(text: "")
+    var leave: SKNode! = nil
+    let leaveText = SKLabelNode(text: "")
     
     //when the scene loads the ball is made and added to the gamescene
     override func sceneDidLoad() {
-        
         physicsWorld.contactDelegate = self
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         
@@ -127,7 +105,7 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
         
         
         //This posts the timer
-        label.position = CGPoint(x: size.width/2, y: size.height/2)
+        label.position = CGPoint(x: size.width/2, y: size.height/2+100)
         label.fontSize = 60
         label.text="\(minutes):\(seconds)"
         addChild(label)
@@ -171,11 +149,6 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
         addChild(top)
         addChild(right)
         addChild(left)
-        
-        
-        
-        
-
     }
     
     
@@ -226,10 +199,29 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
             
         }
         
-        if button.frame.contains(location){
-            sceneDidLoad()
+        
+        
+        //reset button is added
+        if(reset != nil){
+            if reset.frame.contains(location){
+                removeAllChildren()
+                var newScene: SKScene {
+                    let scene = BallJuggler(size: self.size);
+                    scene.onGameOver = {
+                        self.onGameOver?();
+                    }
+                    return scene;
+                } // thanks chatgpt
+                newScene.scaleMode = self.scaleMode
+                self.view?.presentScene(newScene)
+            }
         }
-
+        
+        if(leave != nil){
+            if leave.frame.contains(location){
+                onGameOver?();
+            }
+        }
     }
     
     
@@ -250,16 +242,35 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
             timer?.invalidate()
             removeAllChildren()
             addChild(label)
-            score.position = CGPoint(x: size.width/2, y: size.height/2-100)
+            score.position = CGPoint(x: size.width/2, y: size.height/2)
             score.fontSize = 60
             score.text="Score:\(scoreVal)"
             addChild(score)
 
-            //onGameOver?();
             
-            button = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
-            button.position = CGPoint(x:self.frame.midX, y:self.frame.midY);
-            self.addChild(button)
+            
+            //makes the two buttons at the bottom to reset the game to go to the home screen
+            reset = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
+            reset.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-150);
+            resetText.text="Restart"
+            resetText.fontSize=23
+            resetText.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-156);
+            resetText.fontColor = .white
+            resetText.fontName="PixelEmulator-Bold"
+            
+            
+            leave = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
+            leave.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-150);
+            leaveText.text="Home"
+            leaveText.fontSize=23
+            leaveText.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-156);
+            leaveText.fontColor = .white
+            leaveText.fontName="PixelEmulator-Bold"
+            
+            self.addChild(leave)
+            self.addChild(leaveText)
+            self.addChild(reset)
+            self.addChild(resetText)
             
             
             
@@ -267,6 +278,9 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
             
         }
         
+        
+        
+        //makes kicking sounds if the ball his the top or sides
         else if contact.bodyA.node?.name == "Top" {
             run(SKAction.playSoundFileNamed("ball-bounce-2", waitForCompletion: false))
         } else if contact.bodyA.node?.name == "Left" {
@@ -276,13 +290,4 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
         }
                     
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

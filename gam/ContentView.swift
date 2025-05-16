@@ -39,6 +39,7 @@ struct ButtonModifier: ViewModifier {
             )
             .offset(x: x, y: y)
     }
+
 }
 
 extension View{
@@ -58,31 +59,41 @@ struct ContentView: View {
                     SpriteView(scene: BlobView(size: geometry.size))
                 }
                 .ignoresSafeArea()
-                NavigationLink {
-                    ShopView(money: money)
-                        .navigationBarBackButtonHidden(true)
+                VStack {
+                    HStack(alignment: .bottom) {
+                        NavigationLink {
+                            ShopView(money: money)
+                                .navigationBarBackButtonHidden(true)
+                        }
+                        label: {
+                            Rectangle()
+                                .fill(.clear)
+                        }
+                        .buttonMod(0, 0, 105, 90, "Shop")
+                        Spacer()
+                        Rectangle()
+                            .fill(.clear)
+                            .buttonMod(0, 0, 100, 50, "$\(money)")
+                        Spacer()
+                        NavigationLink {
+                            GamesView()
+                                .navigationBarBackButtonHidden(true)
+                        }
+                        label: {
+                            Rectangle()
+                                .fill(.clear)
+                        }
+                        .buttonMod(0, 0, 105, 90, "Games")
+                    }
+                    Spacer()
                 }
-                label: {
-                    Rectangle()
-                        .fill(.clear)
-                }
-                .buttonMod(-125, -370, 105, 90, "Shop")
-                NavigationLink {
-                    GamesView()
-                        .navigationBarBackButtonHidden(true)
-                }
-                label: {
-                    Rectangle()
-                        .fill(.clear)
-                }
-                .buttonMod(125, -370, 105, 90, "Games")
-                Rectangle()
-                    .fill(.clear)
-                    .buttonMod(0, -350, 100, 50, "$\(money)")
+                .padding(25)
+                .ignoresSafeArea(.all)
             }
         }
     }
 }
+    
 
 #Preview {
     ContentView()
