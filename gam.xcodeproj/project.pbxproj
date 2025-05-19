@@ -14,8 +14,8 @@
 		346AAB4D2DC2984800841272 /* BallJuggler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346AAB4C2DC2984800841272 /* BallJuggler.swift */; };
 		346AAB4F2DC29A0E00841272 /* GamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346AAB4E2DC29A0E00841272 /* GamesView.swift */; };
 		346AAB6F2DD2615D00841272 /* DuckHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346AAB6E2DD2615D00841272 /* DuckHunt.swift */; };
-		346AAB762DDB975500841272 /* duck-Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 346AAB752DDB975400841272 /* duck-Sound.mp3 */; };
-		346AAB7C2DDB97F100841272 /* ball-kick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 346AAB7B2DDB97F100841272 /* ball-kick.mp3 */; };
+		346AAB7E2DDBA00400841272 /* ball-kick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 346AAB7D2DDBA00400841272 /* ball-kick.mp3 */; };
+		346AAB802DDBA01300841272 /* duckSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 346AAB7F2DDBA01300841272 /* duckSound.mp3 */; };
 		3BCAEC462DCA785A00CEDAEF /* KnotsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAEC452DCA785A00CEDAEF /* KnotsGame.swift */; };
 		BE948DA42DD4E3B700175C2E /* Barrels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE948DA32DD4E3B700175C2E /* Barrels.swift */; };
 		BE948DA62DD8EEFB00175C2E /* duck-quack-112941.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BE948DA52DD8EEFB00175C2E /* duck-quack-112941.mp3 */; };
@@ -36,8 +36,8 @@
 		346AAB4C2DC2984800841272 /* BallJuggler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallJuggler.swift; sourceTree = "<group>"; };
 		346AAB4E2DC29A0E00841272 /* GamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesView.swift; sourceTree = "<group>"; };
 		346AAB6E2DD2615D00841272 /* DuckHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuckHunt.swift; sourceTree = "<group>"; };
-		346AAB752DDB975400841272 /* duck-Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "duck-Sound.mp3"; path = "../../../../Downloads/duck-Sound.mp3"; sourceTree = "<group>"; };
-		346AAB7B2DDB97F100841272 /* ball-kick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "ball-kick.mp3"; path = "../../../../Downloads/ball-kick.mp3"; sourceTree = "<group>"; };
+		346AAB7D2DDBA00400841272 /* ball-kick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ball-kick.mp3"; sourceTree = "<group>"; };
+		346AAB7F2DDBA01300841272 /* duckSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = duckSound.mp3; sourceTree = "<group>"; };
 		3BCAEC452DCA785A00CEDAEF /* KnotsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnotsGame.swift; sourceTree = "<group>"; };
 		BE948DA32DD4E3B700175C2E /* Barrels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barrels.swift; sourceTree = "<group>"; };
 		BE948DA52DD8EEFB00175C2E /* duck-quack-112941.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "duck-quack-112941.mp3"; sourceTree = "<group>"; };
@@ -105,8 +105,8 @@
 				BEF34B812DDB7E3500F4F817 /* PixelEmulator.ttf */,
 				BE948DA52DD8EEFB00175C2E /* duck-quack-112941.mp3 */,
 				346AAB452DC2954B00841272 /* Preview Assets.xcassets */,
-				346AAB752DDB975400841272 /* duck-Sound.mp3 */,
-				346AAB7B2DDB97F100841272 /* ball-kick.mp3 */,
+				346AAB7D2DDBA00400841272 /* ball-kick.mp3 */,
+				346AAB7F2DDBA01300841272 /* duckSound.mp3 */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -171,10 +171,10 @@
 			files = (
 				346AAB462DC2954B00841272 /* Preview Assets.xcassets in Resources */,
 				BE948DA62DD8EEFB00175C2E /* duck-quack-112941.mp3 in Resources */,
-				346AAB7C2DDB97F100841272 /* ball-kick.mp3 in Resources */,
+				346AAB7E2DDBA00400841272 /* ball-kick.mp3 in Resources */,
 				346AAB432DC2954B00841272 /* Assets.xcassets in Resources */,
 				BEF34B822DDB7E3500F4F817 /* PixelEmulator.ttf in Resources */,
-				346AAB762DDB975500841272 /* duck-Sound.mp3 in Resources */,
+				346AAB802DDBA01300841272 /* duckSound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
