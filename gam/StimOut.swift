@@ -33,6 +33,7 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
     var canMakeRow = true
     var ground = SKNode()
     var particleGround = SKNode()
+    var lose = false
     
     override func sceneDidLoad() {
         w = (Int(size.width) - space * 2) / 8
@@ -143,7 +144,7 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
         
         enumerateChildNodes(withName:"//*", using:
             { (node, stop) -> Void in
-            if node.name?.prefix(5) == "block" && self.ballCount > 0 {
+            if node.name?.prefix(5) == "block" && self.ballCount > 0 || self.lose==false {
                     node.position.y -= self.blockSpeed
                 }
             })
@@ -197,7 +198,7 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
         
         
         //what happens if a ball hits the ground
-        else if ((contact.bodyB.node?.name == "ball" && contact.bodyA.node?.name == "ground") ) {
+        else if ((contact.bodyB.node?.name == "ball" && contact.bodyA.node?.name == "ground")) {
                 ballCount -= 1
                 
                 
@@ -245,9 +246,20 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
         }
         
         
-        else{
+        //if the block hits the ground in order to prevent goofy stuff from happening
+        else if (contact.bodyB.node?.name?.prefix(5) == "block" && contact.bodyA.node?.name == "ground"){
+            removeAllChildren()
             
+            label.text = "Block hit the ground :("
+            label.fontColor = UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 0.5)
+            scoreLabel.fontColor = UIColor(red: 1, green: 0.3, blue: 0.3, alpha: 0.3)
+            addChild(label)
+            addChild(scoreLabel)
+            
+            lose = true
         }
+        
+   
         
         
         //what happens if a particle hits the lower ground

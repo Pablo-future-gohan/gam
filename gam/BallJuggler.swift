@@ -186,7 +186,10 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
             let squareDist = x * x + y * y;
             if (squareDist <= 2500.0) {
                 
-                run(SKAction.playSoundFileNamed("ball-bounce-2", waitForCompletion: false))
+                run(SKAction.playSoundFileNamed("ball-kick", waitForCompletion: false))
+
+                
+                
                 
                 balls[i].physicsBody?.applyTorque(0.5)
                 
@@ -271,9 +274,9 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
         }
         
         
-        //makes kicking sounds if the ball his the top or sides
+        //makes kicking sounds if the ball hits the top or sides
         else if contact.bodyA.node?.name == "Top" || contact.bodyA.node?.name == "Left" || contact.bodyA.node?.name == "Right" {
-            run(SKAction.playSoundFileNamed("ball-bounce-2.mp3", waitForCompletion: false))
+            run(SKAction.playSoundFileNamed("ball-kick", waitForCompletion: false))
         }
     }
 }
