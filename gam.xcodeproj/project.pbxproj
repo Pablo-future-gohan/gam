@@ -14,11 +14,12 @@
 		346AAB4D2DC2984800841272 /* BallJuggler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346AAB4C2DC2984800841272 /* BallJuggler.swift */; };
 		346AAB4F2DC29A0E00841272 /* GamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346AAB4E2DC29A0E00841272 /* GamesView.swift */; };
 		346AAB6F2DD2615D00841272 /* DuckHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346AAB6E2DD2615D00841272 /* DuckHunt.swift */; };
-		346AAB712DD7A8D500841272 /* duckSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 346AAB702DD7A8D500841272 /* duckSound.mp3 */; };
 		3BCAEC462DCA785A00CEDAEF /* KnotsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAEC452DCA785A00CEDAEF /* KnotsGame.swift */; };
 		BE948DA42DD4E3B700175C2E /* Barrels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE948DA32DD4E3B700175C2E /* Barrels.swift */; };
+		BE948DA62DD8EEFB00175C2E /* duck-quack-112941.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BE948DA52DD8EEFB00175C2E /* duck-quack-112941.mp3 */; };
 		BED9C2B32DCBD7DF00A762CA /* WhackAMoleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9C2B22DCBD7DF00A762CA /* WhackAMoleScene.swift */; };
 		BED9C2B52DCD167400A762CA /* BallRollerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9C2B42DCD167400A762CA /* BallRollerScene.swift */; };
+		BEF34B822DDB7E3500F4F817 /* PixelEmulator.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEF34B812DDB7E3500F4F817 /* PixelEmulator.ttf */; };
 		EBD2F4052DC296FF0041C7C0 /* BlobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2F4042DC296FF0041C7C0 /* BlobView.swift */; };
 		EBD2F4072DC2974E0041C7C0 /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2F4062DC2974E0041C7C0 /* ShopView.swift */; };
 		EBF210F62DCE6D9600C79BE2 /* StimOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF210F52DCE6D9600C79BE2 /* StimOut.swift */; };
@@ -33,12 +34,13 @@
 		346AAB4C2DC2984800841272 /* BallJuggler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallJuggler.swift; sourceTree = "<group>"; };
 		346AAB4E2DC29A0E00841272 /* GamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesView.swift; sourceTree = "<group>"; };
 		346AAB6E2DD2615D00841272 /* DuckHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuckHunt.swift; sourceTree = "<group>"; };
-		346AAB702DD7A8D500841272 /* duckSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = duckSound.mp3; path = ../../../../Downloads/duckSound.mp3; sourceTree = "<group>"; };
 		346AAB742DD7AB4600841272 /* ball-bounce-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ball-bounce-2.mp3"; sourceTree = "<group>"; };
 		3BCAEC452DCA785A00CEDAEF /* KnotsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnotsGame.swift; sourceTree = "<group>"; };
 		BE948DA32DD4E3B700175C2E /* Barrels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barrels.swift; sourceTree = "<group>"; };
+		BE948DA52DD8EEFB00175C2E /* duck-quack-112941.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "duck-quack-112941.mp3"; sourceTree = "<group>"; };
 		BED9C2B22DCBD7DF00A762CA /* WhackAMoleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackAMoleScene.swift; sourceTree = "<group>"; };
 		BED9C2B42DCD167400A762CA /* BallRollerScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallRollerScene.swift; sourceTree = "<group>"; };
+		BEF34B812DDB7E3500F4F817 /* PixelEmulator.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PixelEmulator.ttf; sourceTree = "<group>"; };
 		EBD2F4042DC296FF0041C7C0 /* BlobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlobView.swift; sourceTree = "<group>"; };
 		EBD2F4062DC2974E0041C7C0 /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
 		EBF210F42DCBD2D200C79BE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -97,7 +99,8 @@
 		346AAB442DC2954B00841272 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				346AAB702DD7A8D500841272 /* duckSound.mp3 */,
+				BEF34B812DDB7E3500F4F817 /* PixelEmulator.ttf */,
+				BE948DA52DD8EEFB00175C2E /* duck-quack-112941.mp3 */,
 				346AAB742DD7AB4600841272 /* ball-bounce-2.mp3 */,
 				346AAB452DC2954B00841272 /* Preview Assets.xcassets */,
 			);
@@ -163,8 +166,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				346AAB462DC2954B00841272 /* Preview Assets.xcassets in Resources */,
+				BE948DA62DD8EEFB00175C2E /* duck-quack-112941.mp3 in Resources */,
 				346AAB432DC2954B00841272 /* Assets.xcassets in Resources */,
-				346AAB712DD7A8D500841272 /* duckSound.mp3 in Resources */,
+				BEF34B822DDB7E3500F4F817 /* PixelEmulator.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,8 +331,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -358,8 +362,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

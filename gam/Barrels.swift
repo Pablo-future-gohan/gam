@@ -71,7 +71,7 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
         //makes the bottom barrel
         barrel2 = SKSpriteNode(imageNamed: "barrels-with-toxic-waste-png")
         barrel2.size=CGSize(width: 110, height: 120)
-        barrel2.position = CGPoint(x: size.width/2, y: 700)
+        barrel2.position = CGPoint(x: size.width/2, y: frame.maxY - 100.0)
         barrel2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: 120))
         barrel2.physicsBody?.affectedByGravity = false
         barrel2.physicsBody?.restitution = 1.1

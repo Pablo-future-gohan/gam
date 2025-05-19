@@ -108,7 +108,7 @@ struct ShopView: View {
                         .offset(y: -545)
                     }
                 }
-                .frame(width: 400, height: 540)
+                .frame(width: 400, height: UIScreen.main.bounds.height - 300)
                 Rectangle()
                     .stroke(.white, lineWidth: 3)
                     .frame(width: 350, height: 5)
