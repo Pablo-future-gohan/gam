@@ -23,6 +23,7 @@ class WhackAMoleScene: SKScene {
     var score: Int = 0;
     var scoreText: SKLabelNode = SKLabelNode(text: "0");
     var timeElapsed: Double = 0.0;
+    let defaults = UserDefaults.standard
     
     /* represents the grid of moles.
      0: no mole
@@ -72,7 +73,7 @@ class WhackAMoleScene: SKScene {
         timeElapsed = currentTime - startTime;
         
         timeLeft -= deltaTime;
-        if (timeLeft <= 0.0) {
+        if (timeLeft <= 0.0 && !lose) {
             lose = true;
             timeLeft = 0.0;
             timeText.text = "00:00.00";
@@ -86,6 +87,8 @@ class WhackAMoleScene: SKScene {
                 }
             }
             
+            
+            defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (2 * score), forKey: "Money")
             onGameOver?();
         }
         

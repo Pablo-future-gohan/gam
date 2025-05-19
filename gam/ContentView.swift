@@ -49,7 +49,8 @@ extension View{
 
 struct ContentView: View {
     
-    var money: Int = 5000
+    let defaults = UserDefaults.standard
+    @State var cash = 0;
     
     var body: some View {
         NavigationView {
@@ -61,7 +62,7 @@ struct ContentView: View {
                 VStack {
                     HStack(alignment: .bottom) {
                         NavigationLink {
-                            ShopView(money: money)
+                            ShopView()
                                 .navigationBarBackButtonHidden(true)
                         }
                         label: {
@@ -72,7 +73,7 @@ struct ContentView: View {
                         Spacer()
                         Rectangle()
                             .fill(.clear)
-                            .buttonMod(0, 0, 100, 50, "$\(money)")
+                            .buttonMod(0, 0, 100, 50, "$\(cash)")
                         Spacer()
                         NavigationLink {
                             GamesView()
@@ -85,10 +86,19 @@ struct ContentView: View {
                         .buttonMod(0, 0, 105, 90, "Games")
                     }
                     Spacer()
+                    Button {
+                        defaults.set(0, forKey: "Money")
+                        cash = (defaults.object(forKey: "Money") as? Int ?? 0)
+                    } label: {
+                        Rectangle().frame(height: 50)
+                    }
                 }
                 .padding(25)
                 .ignoresSafeArea(.all)
             }
+        }
+        .onAppear {
+            cash = (defaults.object(forKey: "Money") as? Int ?? 0)
         }
     }
 }

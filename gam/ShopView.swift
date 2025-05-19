@@ -15,8 +15,9 @@ struct ShopView: View {
     @State var selectedButton = -1
     var boxSize: CGFloat = 100
     var spacing: CGFloat = 10
-    var money: Int
     let numButtons = 30
+    let defaults = UserDefaults.standard
+    @State var money = 0;
     
     @State var ShopTabs = ["Colors", "Hats", "Decor"]
     
@@ -120,9 +121,12 @@ struct ShopView: View {
             }
         }
         .ignoresSafeArea()
+        .onAppear {
+            money = (defaults.object(forKey: "Money") as? Int ?? 0)
+        }
     }
 }
 
 #Preview {
-    ShopView(money: 300)
+    ShopView()
 }

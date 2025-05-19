@@ -22,6 +22,8 @@ class KnotsGame: SKScene {
     var score: Int = 0;
     var scoreText: SKLabelNode = SKLabelNode(text: "0");
     var lose: Bool = false;
+    var reallyLose: Bool = false;
+    let defaults = UserDefaults.standard
     
     
     override func sceneDidLoad() {
@@ -146,6 +148,7 @@ class KnotsGame: SKScene {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if (reallyLose) { return; }
         dragIdx = -1;
         // win condition
         var win: Bool = true;
@@ -168,6 +171,8 @@ class KnotsGame: SKScene {
                 timeLeft += 30.0 / log(Double(score) + exp(1));
                 createNewKnot();
             } else {
+                reallyLose = true;
+                defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (50 * score), forKey: "Money")
                 self.onGameOver?();
             }
         }
