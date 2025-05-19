@@ -29,7 +29,6 @@ struct ButtonModifier: ViewModifier {
                     .background(
                         ZStack {
                             Rectangle()
-
                                 .foregroundColor(buttonCol2)
                                 .offset(y: 10)
                             Rectangle()

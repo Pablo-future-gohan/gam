@@ -10,7 +10,7 @@ import SpriteKit
 
 
 class DuckHunt: SKScene, SKPhysicsContactDelegate {
-    
+    var onGameOver: (() -> Void)?
     
     //Variables for the ball
     var ball = SKSpriteNode()
@@ -31,7 +31,11 @@ class DuckHunt: SKScene, SKPhysicsContactDelegate {
     let score = SKLabelNode(text: "")
     var scoreVal = 0
 
-
+    //these two variables are for the reset button and go home button
+    var reset: SKNode! = nil
+    let resetText = SKLabelNode(text: "")
+    var leave: SKNode! = nil
+    let leaveText = SKLabelNode(text: "")
     
     
     override func didMove(to view: SKView) {
@@ -65,6 +69,29 @@ class DuckHunt: SKScene, SKPhysicsContactDelegate {
             score.fontSize = 60
             score.text="Score: \(scoreVal)"
             addChild(score)
+            
+            //makes the two buttons at the bottom to reset the game to go to the home screen
+            reset = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
+            reset.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-150);
+            resetText.text="Restart"
+            resetText.fontSize=23
+            resetText.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-156);
+            resetText.fontColor = .white
+            resetText.fontName="PixelEmulator-Bold"
+            
+            
+            leave = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
+            leave.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-150);
+            leaveText.text="Home"
+            leaveText.fontSize=23
+            leaveText.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-156);
+            leaveText.fontColor = .white
+            leaveText.fontName="PixelEmulator-Bold"
+            
+            self.addChild(leave)
+            self.addChild(leaveText)
+            self.addChild(reset)
+            self.addChild(resetText)
         }
         
 
@@ -81,14 +108,34 @@ class DuckHunt: SKScene, SKPhysicsContactDelegate {
         
         if(ball.frame.contains(location))
         {
-            run(SKAction.playSoundFileNamed("duckSound", waitForCompletion: false))
+            run(SKAction.playSoundFileNamed("duck-quack-112941.mp3", waitForCompletion: false))
 
             ball.removeFromParent()
             scoreVal+=1
             makeBall()
         }
         
+        //reset button is added
+        if(reset != nil){
+            if reset.frame.contains(location){
+                removeAllChildren()
+                var newScene: SKScene {
+                    let scene = DuckHunt(size: self.size);
+                    scene.onGameOver = {
+                        self.onGameOver?();
+                    }
+                    return scene;
+                } // thanks chatgpt
+                newScene.scaleMode = self.scaleMode
+                self.view?.presentScene(newScene)
+            }
+        }
         
+        if(leave != nil){
+            if leave.frame.contains(location){
+                onGameOver?();
+            }
+        }
         
         
     }

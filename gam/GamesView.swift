@@ -11,6 +11,7 @@ import SpriteKit
 struct GamesView: View {
     @Environment(\.dismiss) public var dismiss;
     @State var backButton: Bool = true;
+    let buttonWidth: Double = 240;
     var knots: SKScene {
         let scene = KnotsGame(size: UIScreen.main.bounds.size);
         scene.onGameOver = {
@@ -53,6 +54,13 @@ struct GamesView: View {
         }
         return scene;
     } // thanks chatgpt
+    var duckHunt: SKScene {
+        let scene = DuckHunt(size: UIScreen.main.bounds.size);
+        scene.onGameOver = {
+            dismiss();
+        }
+        return scene;
+    } // thanks chatgpt
     var body: some View {
         NavigationView {
             ZStack {
@@ -78,7 +86,7 @@ struct GamesView: View {
                         Rectangle()
                             .fill(.clear)
                     }
-                    .buttonMod(0,0,180,30,"Knots")
+                    .buttonMod(0,0,buttonWidth,30,"Knots")
                     .padding(5)
                     NavigationLink {
                         SpriteView(scene: stimOut)
@@ -88,7 +96,7 @@ struct GamesView: View {
                         Rectangle()
                             .fill(.clear)
                     }
-                    .buttonMod(0,0,180,30,"Stim Out")
+                    .buttonMod(0,0,buttonWidth,30,"Stim Out")
                     .padding(5)
                     NavigationLink {
                         SpriteView(scene: ballJuggler)
@@ -98,7 +106,7 @@ struct GamesView: View {
                         Rectangle()
                             .fill(.clear)
                     }
-                    .buttonMod(0,0,180,30,"Ball Jugglin'")
+                    .buttonMod(0,0,buttonWidth,30,"Ball Jugglin'")
                     .padding(5)
                     NavigationLink {
                         SpriteView(scene: whackAMole)
@@ -108,7 +116,7 @@ struct GamesView: View {
                         Rectangle()
                             .fill(.clear)
                     }
-                    .buttonMod(0,0,180,30,"Whack-A-Mole")
+                    .buttonMod(0,0,buttonWidth,30,"Whack-A-Mole")
                     .padding(5)
                     NavigationLink {
                         SpriteView(scene: ballRoller)
@@ -118,7 +126,7 @@ struct GamesView: View {
                         Rectangle()
                             .fill(.clear)
                     }
-                    .buttonMod(0,0,180,30,"Ball Roller")
+                    .buttonMod(0,0,buttonWidth,30,"Ball Roller")
                     .padding(5)
                     NavigationLink {
                         SpriteView(scene: barrels)
@@ -128,7 +136,17 @@ struct GamesView: View {
                         Rectangle()
                             .fill(.clear)
                     }
-                    .buttonMod(0,0,180,30,"Barrels")
+                    .buttonMod(0,0,buttonWidth,30,"Barrels")
+                    .padding(5)
+                    NavigationLink {
+                        SpriteView(scene: duckHunt)
+                            .ignoresSafeArea()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        Rectangle()
+                            .fill(.clear)
+                    }
+                    .buttonMod(0,0,buttonWidth,30,"Duck Hunt")
                     .padding(5)
                 }
             }

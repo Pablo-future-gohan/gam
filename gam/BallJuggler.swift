@@ -35,8 +35,6 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
     //when the scene loads the ball is made and added to the gamescene
     override func sceneDidLoad() {
         physicsWorld.contactDelegate = self
-        self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-        
 
         
         ball = SKSpriteNode(imageNamed:"soccer-ball-png-24")
@@ -183,18 +181,17 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
         
         
         for i in 0..<balls.count{
-            if balls[i].frame.contains(location) {
+            let x = balls[i].position.x - location.x
+            let y = balls[i].position.y - location.y
+            let squareDist = x * x + y * y;
+            if (squareDist <= 2500.0) {
                 
                 run(SKAction.playSoundFileNamed("ball-bounce-2", waitForCompletion: false))
-                
-                let x = balls[i].position.x - location.x
-                let y = balls[i].position.y - location.y
-                
                 
                 balls[i].physicsBody?.applyTorque(0.5)
                 
                 
-                balls[i].physicsBody?.applyImpulse(CGVector(dx: 25*x*(3*t).squareRoot()/(x * x + y * y).squareRoot(), dy: y/(x * x + y * y).squareRoot()*45*(3*t).squareRoot()+100))
+                balls[i].physicsBody?.applyImpulse(CGVector(dx: 43.3 * x * sqrt(t / squareDist), dy: 77.9 * y * sqrt(t / squareDist) + 100.0))
             }
             
         }
@@ -256,7 +253,7 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
             resetText.fontSize=23
             resetText.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-156);
             resetText.fontColor = .white
-            resetText.fontName="PixelEmulator-Bold"
+            resetText.fontName="PixelEmulator"
             
             
             leave = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
@@ -265,29 +262,18 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
             leaveText.fontSize=23
             leaveText.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-156);
             leaveText.fontColor = .white
-            leaveText.fontName="PixelEmulator-Bold"
+            leaveText.fontName="PixelEmulator"
             
             self.addChild(leave)
             self.addChild(leaveText)
             self.addChild(reset)
             self.addChild(resetText)
-            
-            
-            
-            
-            
         }
-        
         
         
         //makes kicking sounds if the ball his the top or sides
-        else if contact.bodyA.node?.name == "Top" {
-            run(SKAction.playSoundFileNamed("ball-bounce-2", waitForCompletion: false))
-        } else if contact.bodyA.node?.name == "Left" {
-            run(SKAction.playSoundFileNamed("ball-bounce-2", waitForCompletion: false))
-        } else if contact.bodyA.node?.name == "Right" {
-            run(SKAction.playSoundFileNamed("ball-bounce-2", waitForCompletion: false))
+        else if contact.bodyA.node?.name == "Top" || contact.bodyA.node?.name == "Left" || contact.bodyA.node?.name == "Right" {
+            run(SKAction.playSoundFileNamed("ball-bounce-2.mp3", waitForCompletion: false))
         }
-                    
     }
 }
