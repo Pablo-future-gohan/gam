@@ -70,8 +70,11 @@ class DuckHunt: SKScene, SKPhysicsContactDelegate {
             score.text="Score: \(scoreVal)"
             addChild(score)
             
+            let defaults = UserDefaults.standard;
+            defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (5 * scoreVal), forKey: "Money");
+            
             //makes the two buttons at the bottom to reset the game to go to the home screen
-            reset = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
+            reset = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
             reset.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-150);
             resetText.text="Restart"
             resetText.fontSize=23
@@ -80,7 +83,7 @@ class DuckHunt: SKScene, SKPhysicsContactDelegate {
             resetText.fontName="PixelEmulator"
             
             
-            leave = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 44))
+            leave = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
             leave.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-150);
             leaveText.text="Home"
             leaveText.fontSize=23

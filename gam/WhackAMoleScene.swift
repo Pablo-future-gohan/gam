@@ -23,7 +23,6 @@ class WhackAMoleScene: SKScene {
     var score: Int = 0;
     var scoreText: SKLabelNode = SKLabelNode(text: "0");
     var timeElapsed: Double = 0.0;
-    let defaults = UserDefaults.standard
     
     /* represents the grid of moles.
      0: no mole
@@ -33,6 +32,12 @@ class WhackAMoleScene: SKScene {
     var moleStates: [[Int]] = [];
     var moleTimes: [[Double]] = [];
     var moles: [[SKShapeNode]] = [];
+    
+    //these two variables are for the reset button and go home button
+    var reset: SKNode! = nil
+    let resetText = SKLabelNode(text: "")
+    var leave: SKNode! = nil
+    let leaveText = SKLabelNode(text: "")
     
     override func sceneDidLoad() {
         timeText.position = CGPoint(x: frame.minX + 30, y: frame.maxY - 40);
@@ -87,9 +92,31 @@ class WhackAMoleScene: SKScene {
                 }
             }
             
+            //makes the two buttons at the bottom to reset the game to go to the home screen
+            reset = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+            reset.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-150);
+            resetText.text="Restart"
+            resetText.fontSize=23
+            resetText.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-156);
+            resetText.fontColor = .white
+            resetText.fontName="PixelEmulator"
             
-            defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (2 * score), forKey: "Money")
-            onGameOver?();
+            
+            leave = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+            leave.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-150);
+            leaveText.text="Home"
+            leaveText.fontSize=23
+            leaveText.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-156);
+            leaveText.fontColor = .white
+            leaveText.fontName="PixelEmulator"
+            
+            self.addChild(leave)
+            self.addChild(leaveText)
+            self.addChild(reset)
+            self.addChild(resetText)
+            
+            let defaults = UserDefaults.standard;
+            defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (10 * score), forKey: "Money")
         }
         
         if (!lose) {
@@ -168,6 +195,28 @@ class WhackAMoleScene: SKScene {
                         }
                         moleStates[i][j] = 0;
                     }
+                }
+            }
+            
+            //reset button is added
+            if(reset != nil){
+                if reset.frame.contains(location){
+                    removeAllChildren()
+                    var newScene: SKScene {
+                        let scene = WhackAMoleScene(size: self.size);
+                        scene.onGameOver = {
+                            self.onGameOver?();
+                        }
+                        return scene;
+                    } // thanks chatgpt
+                    newScene.scaleMode = self.scaleMode
+                    self.view?.presentScene(newScene)
+                }
+            }
+            
+            if(leave != nil){
+                if leave.frame.contains(location){
+                    onGameOver?();
                 }
             }
         }

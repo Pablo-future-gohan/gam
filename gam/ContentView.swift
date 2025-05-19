@@ -96,9 +96,9 @@ struct ContentView: View {
                 .padding(25)
                 .ignoresSafeArea(.all)
             }
-        }
-        .onAppear {
-            cash = (defaults.object(forKey: "Money") as? Int ?? 0)
+            .onAppear {
+                cash = (defaults.object(forKey: "Money") as? Int ?? 0)
+            }
         }
     }
 }

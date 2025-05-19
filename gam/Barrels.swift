@@ -26,11 +26,11 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
     let label = SKLabelNode(text: "")
     var balls: [SKSpriteNode] = []
     
-
-
-
-    
-    
+    //these two variables are for the reset button and go home button
+    var reset: SKNode! = nil
+    let resetText = SKLabelNode(text: "")
+    var leave: SKNode! = nil
+    let leaveText = SKLabelNode(text: "")
     
     override func didMove(to view: SKView) {
         //makes the sludgeball
@@ -121,11 +121,29 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
         let location = touch.location(in: self)
+        if(reset != nil){
+            if reset.frame.contains(location){
+                removeAllChildren()
+                var newScene: SKScene {
+                    let scene = Barrels(size: self.size);
+                    scene.onGameOver = {
+                        self.onGameOver?();
+                    }
+                    return scene;
+                } // thanks chatgpt
+                newScene.scaleMode = self.scaleMode
+                self.view?.presentScene(newScene)
+            }
+        }
         
+        if(leave != nil){
+            if leave.frame.contains(location){
+                onGameOver?();
+            }
+        }
         
         //Checks if barrel is touched and if it is then the ball is spawned and shoots.
         if barrel1.frame.contains(location) {
-            
             if(balls.count<1){
                 ball = SKSpriteNode(imageNamed:"Adobe Express - file")
                 ball.size=CGSize(width: 40, height: 50)
@@ -142,10 +160,7 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
                 
                 
                 balls.append(ball)
-            } else{
-                
             }
-            
             //The ball decreases speed as time goes on so this caps it at a minimum so the speed doesn't decrease too much.
             if(score<90){
                 ball.physicsBody?.applyImpulse(CGVector(dx:0, dy:200-score*2))
@@ -214,7 +229,31 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
                     label.fontSize = 100
                     label.text="Score: \(score)"
                     addChild(label)
-                    onGameOver?();
+                    let defaults = UserDefaults.standard;
+                    defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (25 * score), forKey: "Money");
+                    
+                    //makes the two buttons at the bottom to reset the game to go to the home screen
+                    reset = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+                    reset.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-150);
+                    resetText.text="Restart"
+                    resetText.fontSize=23
+                    resetText.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-156);
+                    resetText.fontColor = .white
+                    resetText.fontName="PixelEmulator"
+                    
+                    
+                    leave = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+                    leave.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-150);
+                    leaveText.text="Home"
+                    leaveText.fontSize=23
+                    leaveText.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-156);
+                    leaveText.fontColor = .white
+                    leaveText.fontName="PixelEmulator"
+                    
+                    self.addChild(leave)
+                    self.addChild(leaveText)
+                    self.addChild(reset)
+                    self.addChild(resetText)
                 }
             }
             

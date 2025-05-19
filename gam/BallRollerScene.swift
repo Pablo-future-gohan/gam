@@ -22,6 +22,12 @@ class BallRollerScene: SKScene {
     var lose: Bool = false;
     var timeText: SKLabelNode = SKLabelNode(text: "00:00.00");
     
+    //these two variables are for the reset button and go home button
+    var reset: SKNode! = nil
+    let resetText = SKLabelNode(text: "")
+    var leave: SKNode! = nil
+    let leaveText = SKLabelNode(text: "")
+    
     override func sceneDidLoad() {
         manager.startAccelerometerUpdates();
         ball.position = CGPoint(x: frame.midX, y: 20);
@@ -80,7 +86,7 @@ class BallRollerScene: SKScene {
                 child.position.y -= CGFloat(ballVelY) * deltaTime;
                 if (child.position.y < -50.0) {
                     child.removeFromParent();
-                } else if (child.intersects(ball) && (
+                } else if (child.intersects(ball) && !lose && (
                     ball.contains(CGPoint(x: child.frame.minX, y: child.frame.maxY)) || // ball contains square topleft
                     ball.contains(CGPoint(x: child.frame.maxX, y: child.frame.maxY)) || // ball contains square topright
                     ball.contains(CGPoint(x: child.frame.minX, y: child.frame.minY)) || // ball contains square bottomleft
@@ -89,9 +95,31 @@ class BallRollerScene: SKScene {
                     child.contains(CGPoint(x: ball.frame.minX, y: ball.frame.midY)) || // square contains ball left
                     child.contains(CGPoint(x: ball.frame.maxX, y: ball.frame.midY))    // square contains ball right
                 )) {
-                    /// TODO: make losing work, scoring system, etc.
-                    backgroundColor = .red;
-                    onGameOver?();
+                    let defaults = UserDefaults.standard;
+                    defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (10 * Int(timeElapsed)), forKey: "Money");
+                    
+                    //makes the two buttons at the bottom to reset the game to go to the home screen
+                    reset = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+                    reset.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-150);
+                    resetText.text="Restart"
+                    resetText.fontSize=23
+                    resetText.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-156);
+                    resetText.fontColor = .white
+                    resetText.fontName="PixelEmulator"
+                    
+                    
+                    leave = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+                    leave.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-150);
+                    leaveText.text="Home"
+                    leaveText.fontSize=23
+                    leaveText.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-156);
+                    leaveText.fontColor = .white
+                    leaveText.fontName="PixelEmulator"
+                    
+                    self.addChild(leave)
+                    self.addChild(leaveText)
+                    self.addChild(reset)
+                    self.addChild(resetText)
                     startTime = timeElapsed; // how long you lasted
                     lose = true;
                 }
@@ -100,6 +128,31 @@ class BallRollerScene: SKScene {
         
         // for deltaTime purposes
         time = currentTime;
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else {return}
+        let location = touch.location(in: self)
+        if(reset != nil){
+            if reset.frame.contains(location){
+                removeAllChildren()
+                var newScene: SKScene {
+                    let scene = BallRollerScene(size: self.size);
+                    scene.onGameOver = {
+                        self.onGameOver?();
+                    }
+                    return scene;
+                } // thanks chatgpt
+                newScene.scaleMode = self.scaleMode
+                self.view?.presentScene(newScene)
+            }
+        }
+        
+        if(leave != nil){
+            if leave.frame.contains(location){
+                onGameOver?();
+            }
+        }
     }
     
     /// Creates a wall of obstacles.

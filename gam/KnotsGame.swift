@@ -23,8 +23,12 @@ class KnotsGame: SKScene {
     var scoreText: SKLabelNode = SKLabelNode(text: "0");
     var lose: Bool = false;
     var reallyLose: Bool = false;
-    let defaults = UserDefaults.standard
     
+    //these two variables are for the reset button and go home button
+    var reset: SKNode! = nil
+    let resetText = SKLabelNode(text: "")
+    var leave: SKNode! = nil
+    let leaveText = SKLabelNode(text: "")
     
     override func sceneDidLoad() {
         // timer label
@@ -75,6 +79,28 @@ class KnotsGame: SKScene {
         for i in 0..<points.count {
             if (points[i].contains(location)) {
                 dragIdx = i;
+            }
+        }
+        
+        //reset button is added
+        if(reset != nil){
+            if reset.frame.contains(location){
+                removeAllChildren()
+                var newScene: SKScene {
+                    let scene = KnotsGame(size: self.size);
+                    scene.onGameOver = {
+                        self.onGameOver?();
+                    }
+                    return scene;
+                } // thanks chatgpt
+                newScene.scaleMode = self.scaleMode
+                self.view?.presentScene(newScene)
+            }
+        }
+        
+        if(leave != nil){
+            if leave.frame.contains(location){
+                onGameOver?();
             }
         }
     }
@@ -172,8 +198,38 @@ class KnotsGame: SKScene {
                 createNewKnot();
             } else {
                 reallyLose = true;
-                defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (50 * score), forKey: "Money")
-                self.onGameOver?();
+                let defaults = UserDefaults.standard;
+                defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (1000 * score), forKey: "Money");
+                for i in stride(from: lineys.count - 1, to: -1, by: -1) {
+                    lineys[i].2.removeFromParent();
+                    lineys.remove(at: i);
+                }
+                for i in stride(from: points.count - 1, to: -1, by: -1) {
+                    points[i].removeFromParent();
+                    points.remove(at: i);
+                }
+                //makes the two buttons at the bottom to reset the game to go to the home screen
+                reset = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+                reset.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-150);
+                resetText.text="Restart"
+                resetText.fontSize=23
+                resetText.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-156);
+                resetText.fontColor = .white
+                resetText.fontName="PixelEmulator"
+                
+                
+                leave = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+                leave.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-150);
+                leaveText.text="Home"
+                leaveText.fontSize=23
+                leaveText.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-156);
+                leaveText.fontColor = .white
+                leaveText.fontName="PixelEmulator"
+                
+                self.addChild(leave)
+                self.addChild(leaveText)
+                self.addChild(reset)
+                self.addChild(resetText)
             }
         }
     }

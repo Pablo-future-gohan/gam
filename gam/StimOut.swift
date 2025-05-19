@@ -35,6 +35,12 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
     var particleGround = SKNode()
     var lose = false
     
+    //these two variables are for the reset button and go home button
+    var reset: SKNode! = nil
+    let resetText = SKLabelNode(text: "")
+    var leave: SKNode! = nil
+    let leaveText = SKLabelNode(text: "")
+    
     override func sceneDidLoad() {
         w = (Int(size.width) - space * 2) / 8
         ball = SKShapeNode(circleOfRadius: ballSize)
@@ -144,8 +150,69 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
         
         enumerateChildNodes(withName:"//*", using:
             { (node, stop) -> Void in
-            if node.name?.prefix(5) == "block" && self.ballCount > 0 || self.lose==false {
+            if (node.name ?? "notblock").prefix(5) == "block" && self.ballCount > 0 && !self.lose {
                     node.position.y -= self.blockSpeed
+                if (node.position.y < self.frame.minY - 20 && node.position.x > self.frame.minX && node.position.x < self.frame.maxX) {
+                    self.lose = true
+                    self.label.text = "Block Escaped :("
+                    self.label.fontColor = UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 0.5)
+                    self.scoreLabel.fontColor = UIColor(red: 1, green: 0.3, blue: 0.3, alpha: 0.3)
+                    
+                    let defaults = UserDefaults.standard;
+                    defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (5 * self.score), forKey: "Money");
+                    
+                    //makes the two buttons at the bottom to reset the game to go to the home screen
+                    self.reset = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+                    self.reset.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-150);
+                    self.resetText.text="Restart"
+                    self.resetText.fontSize=23
+                    self.resetText.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-156);
+                    self.resetText.fontColor = .white
+                    self.resetText.fontName="PixelEmulator"
+                    
+                    
+                    self.leave = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+                    self.leave.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-150);
+                    self.leaveText.text="Home"
+                    self.leaveText.fontSize=23
+                    self.leaveText.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-156);
+                    self.leaveText.fontColor = .white
+                    self.leaveText.fontName="PixelEmulator"
+                    
+                    self.addChild(self.leave)
+                    self.addChild(self.leaveText)
+                    self.addChild(self.reset)
+                    self.addChild(self.resetText)
+                    
+                    self.children.forEach { (node) in
+                        if node.name == "ball" {
+                            for i in 2...30 {
+                                let randomSize = CGFloat.random(in: 2...7)
+                                self.particle = SKShapeNode(circleOfRadius: randomSize)
+                                self.particle.fillColor = .blue
+                                self.particle.physicsBody = SKPhysicsBody(circleOfRadius: randomSize)
+                                self.particle.physicsBody?.affectedByGravity = true
+                                self.particle.position = CGPoint(x: (node.position.x) + CGFloat.random(in: -5...5), y: (node.position.y) + CGFloat.random(in: -5...5))
+                                self.particle.physicsBody?.linearDamping = 0
+                                self.particle.physicsBody?.angularDamping = 0
+                                
+                                self.particle.physicsBody?.node?.name = "particle"
+
+                                self.particle.physicsBody?.restitution = 0.7
+                                self.particle.physicsBody?.collisionBitMask = 1 << i
+                                self.particle.physicsBody?.categoryBitMask = 1 << i
+                                self.particle.physicsBody?.contactTestBitMask = 1 << i
+                                
+                                self.particle.physicsBody?.mass = 0.3 * randomSize
+                                self.addChild(self.particle)
+                                
+                                self.particle.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -150 + (node.physicsBody?.velocity.dx ?? CGFloat(0.0)) * 0.6...150 + (node.physicsBody?.velocity.dx ?? CGFloat(0.0)) * 0.6), dy: 0))
+                                self.particle.physicsBody?.applyImpulse(CGVector(dx: 0, dy: CGFloat.random(in: (abs((node.physicsBody?.velocity.dy)!)) * 0.4...(abs((node.physicsBody?.velocity.dy)!)) * 1.1)))
+                            }
+                            node.removeFromParent()
+                        }
+                    }
+                }
                 }
             })
 
@@ -167,7 +234,6 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         var randomSize: CGFloat
-        
         
         //what happens if the ball hits a block
         if (contact.bodyA.node?.name == "ball" && contact.bodyB.node?.name?.prefix(5) == "block") {
@@ -202,15 +268,40 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
                 ballCount -= 1
                 
                 
-                if (ballCount == 0) {
+                if (ballCount == 0 && !lose) {
                     label.text = "Dropped The Ball :("
                     label.fontColor = UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 0.5)
                     scoreLabel.fontColor = UIColor(red: 1, green: 0.3, blue: 0.3, alpha: 0.3)
-                    onGameOver?();
+                    
+                    let defaults = UserDefaults.standard;
+                    defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (5 * score), forKey: "Money");
+                    
+                    //makes the two buttons at the bottom to reset the game to go to the home screen
+                    reset = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+                    reset.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-150);
+                    resetText.text="Restart"
+                    resetText.fontSize=23
+                    resetText.position = CGPoint(x:self.frame.midX-100, y:self.frame.midY-156);
+                    resetText.fontColor = .white
+                    resetText.fontName="PixelEmulator"
+                    
+                    
+                    leave = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
+                    leave.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-150);
+                    leaveText.text="Home"
+                    leaveText.fontSize=23
+                    leaveText.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-156);
+                    leaveText.fontColor = .white
+                    leaveText.fontName="PixelEmulator"
+                    
+                    self.addChild(leave)
+                    self.addChild(leaveText)
+                    self.addChild(reset)
+                    self.addChild(resetText)
+
                 }
                 
                 for i in 2...30 {
-                    
                     randomSize = CGFloat.random(in: 2...7)
                     particle = SKShapeNode(circleOfRadius: randomSize)
                     particle.fillColor = .blue
@@ -227,18 +318,11 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
                     particle.physicsBody?.categoryBitMask = 1 << i
                     particle.physicsBody?.contactTestBitMask = 1 << i
                     
-
                     particle.physicsBody?.mass = 0.3 * randomSize
                     addChild(particle)
                     
-
-                    //particle.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -150...150), dy: CGFloat.random(in: -10...1500)))
-                    
                     particle.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -150 + (contact.bodyB.node?.physicsBody?.velocity.dx ?? CGFloat(0.0)) * 0.6...150 + (contact.bodyB.node?.physicsBody?.velocity.dx ?? CGFloat(0.0)) * 0.6), dy: 0))
                     particle.physicsBody?.applyImpulse(CGVector(dx: 0, dy: CGFloat.random(in: (abs((contact.bodyB.node?.physicsBody?.velocity.dy)!)) * 0.4...(abs((contact.bodyB.node?.physicsBody?.velocity.dy)!)) * 1.1)))
-  
-            
-
                 }
                 contact.bodyB.node?.removeFromParent()
             
@@ -359,6 +443,32 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
             addChild(particle)
             particle.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -310...310), dy: CGFloat.random(in: -300...300)))
             particle.physicsBody?.angularVelocity = CGFloat.random(in: -40...40)
+        }
+    }
+    
+    // for losing
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else {return}
+        let location = touch.location(in: self)
+        if(reset != nil){
+            if reset.frame.contains(location){
+                removeAllChildren()
+                var newScene: SKScene {
+                    let scene = StimOut(size: self.size);
+                    scene.onGameOver = {
+                        self.onGameOver?();
+                    }
+                    return scene;
+                } // thanks chatgpt
+                newScene.scaleMode = self.scaleMode
+                self.view?.presentScene(newScene)
+            }
+        }
+        
+        if(leave != nil){
+            if leave.frame.contains(location){
+                onGameOver?();
+            }
         }
     }
 }
