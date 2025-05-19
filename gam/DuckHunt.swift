@@ -108,7 +108,7 @@ class DuckHunt: SKScene, SKPhysicsContactDelegate {
         
         if(ball.frame.contains(location))
         {
-            run(SKAction.playSoundFileNamed("duck-Sound", waitForCompletion: false))
+            run(SKAction.playSoundFileNamed("duckSound", waitForCompletion: false))
 
             ball.removeFromParent()
             scoreVal+=1
