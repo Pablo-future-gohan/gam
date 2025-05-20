@@ -8,8 +8,6 @@
 import SwiftUI
 import SpriteKit
 
-
-
 class Barrels: SKScene, SKPhysicsContactDelegate {
     var onGameOver: (() -> Void)?;
     
@@ -34,11 +32,7 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         //makes the sludgeball
-        
-        
         self.scene?.physicsWorld.contactDelegate = self
-        
-        
         ball = SKSpriteNode(imageNamed:"Adobe Express - file")
         ball.size=CGSize(width: 40, height: 50)
         ball.physicsBody = SKPhysicsBody(circleOfRadius: 22.5)
@@ -47,10 +41,6 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody?.collisionBitMask = 1
         ball.physicsBody?.contactTestBitMask = 1
         ball.physicsBody?.categoryBitMask = 1
-        
-        
-        
-        
         
         //makes the bottom barrel
         barrel1 = SKSpriteNode(imageNamed: "barrels-with-toxic-waste-png")
@@ -64,10 +54,6 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
         barrel1.physicsBody?.contactTestBitMask = 0b10
         barrel1.physicsBody?.categoryBitMask = 0b10
         
-        
-        
-        
-        
         //makes the bottom barrel
         barrel2 = SKSpriteNode(imageNamed: "barrels-with-toxic-waste-png")
         barrel2.size=CGSize(width: 110, height: 120)
@@ -80,10 +66,7 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
         barrel2.physicsBody?.contactTestBitMask = 1
         barrel2.physicsBody?.categoryBitMask = 1
         barrel2.physicsBody?.allowsRotation = false
-        
-        
         addChild(barrel2)
-        
         
         //makes the edge of the screen
         edge = SKSpriteNode()
@@ -92,31 +75,18 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
         edge.physicsBody?.contactTestBitMask = 0b11
         edge.name = "edge"
         edge.physicsBody?.categoryBitMask = 0b11
-        
-        
-        
         addChild(edge)
-        
-        
-        
         
         addChild(barrel1)
         barrel1.physicsBody?.applyImpulse(CGVector(dx:bottom, dy:0))
         barrel2.physicsBody?.applyImpulse(CGVector(dx:top, dy:0))
-        
-        
-        
         
         //adds the score counter
         label.position = CGPoint(x: frame.minX+50, y: frame.maxY-50)
         label.fontSize = 20
         label.text="\(score)"
         addChild(label)
-
-        
-        
     }
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
@@ -166,20 +136,11 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
                 ball.physicsBody?.applyImpulse(CGVector(dx:0, dy:200-score*2))
             } else {
                 ball.physicsBody?.applyImpulse(CGVector(dx:0, dy:20))
-                
             }
-            
         }
     }
     
-    
-    
-    
-    
-    
     func didBegin(_ contact: SKPhysicsContact) {
-        
-        
         //If the ball hits the top barrel
         if contact.bodyB.node?.name == "ball" {
             
@@ -256,13 +217,6 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
                     self.addChild(resetText)
                 }
             }
-            
-            
-            
         }
-        
-        
-        
-        
     }
 }

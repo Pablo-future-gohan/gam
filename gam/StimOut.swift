@@ -272,6 +272,7 @@ class StimOut: SKScene, SKPhysicsContactDelegate {
                     label.text = "Dropped The Ball :("
                     label.fontColor = UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 0.5)
                     scoreLabel.fontColor = UIColor(red: 1, green: 0.3, blue: 0.3, alpha: 0.3)
+                    lose = true;
                     
                     let defaults = UserDefaults.standard;
                     defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (5 * score), forKey: "Money");

@@ -161,10 +161,13 @@ class BallRollerScene: SKScene {
         let minX: CGFloat = frame.midX + halfScreens * (frame.minX - frame.midX);
         let maxX: CGFloat = frame.midX + halfScreens * (frame.maxX - frame.midX);
         /// TODO: add spawn patterns to obstacles
-        for _ in 0..<Int.random(in: Int(halfScreens * 2)...Int(halfScreens * 3)) {
+        for _ in 0..<Int.random(in: Int(halfScreens * 2.3)...Int(halfScreens * 3.5)) {
             let obstacle: SKShapeNode = SKShapeNode(rectOf: CGSize(width: 50, height: 50));
             obstacle.position = CGPoint(x: CGFloat.random(in: minX...maxX), y: frame.maxY + 50 + CGFloat.random(in: 0...30));
             obstacle.name = "obstacle";
+            let color = UIColor(hue: Double.random(in: 0.0..<0.01) + (time / 24.38).truncatingRemainder(dividingBy: 1.0), saturation: Double.random(in: 0.8..<1.0), brightness: Double.random(in: 0.8..<1.0), alpha: Double.random(in: 0.8..<1.0));
+            obstacle.fillColor = color;
+            obstacle.strokeColor = color;
             addChild(obstacle);
         }
     }

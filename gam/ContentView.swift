@@ -26,6 +26,7 @@ struct ButtonModifier: ViewModifier {
                     .foregroundStyle(.white)
                     .font(.custom("PixelEmulator", size: 24))
                     .frame(width: w, height: h)
+                    .minimumScaleFactor(0.5)
                     .background(
                         ZStack {
                             Rectangle()
@@ -73,7 +74,7 @@ struct ContentView: View {
                         Spacer()
                         Rectangle()
                             .fill(.clear)
-                            .buttonMod(0, 0, 100, 50, "$\(cash)")
+                            .buttonMod(0, 0, 120, 50, "$\(cash)")
                         Spacer()
                         NavigationLink {
                             GamesView()
@@ -86,12 +87,12 @@ struct ContentView: View {
                         .buttonMod(0, 0, 105, 90, "Games")
                     }
                     Spacer()
-                    Button {
-                        defaults.set(0, forKey: "Money")
-                        cash = (defaults.object(forKey: "Money") as? Int ?? 0)
-                    } label: {
-                        Rectangle().frame(height: 50)
-                    }
+//                    Button {
+//                        defaults.set(0, forKey: "Money")
+//                        cash = (defaults.object(forKey: "Money") as? Int ?? 0)
+//                    } label: {
+//                        Rectangle().frame(height: 50)
+//                    }
                 }
                 .padding(25)
                 .ignoresSafeArea(.all)

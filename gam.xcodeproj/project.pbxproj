@@ -18,7 +18,6 @@
 		346AAB802DDBA01300841272 /* duckSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 346AAB7F2DDBA01300841272 /* duckSound.mp3 */; };
 		3BCAEC462DCA785A00CEDAEF /* KnotsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAEC452DCA785A00CEDAEF /* KnotsGame.swift */; };
 		BE948DA42DD4E3B700175C2E /* Barrels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE948DA32DD4E3B700175C2E /* Barrels.swift */; };
-		BE948DA62DD8EEFB00175C2E /* duck-quack-112941.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BE948DA52DD8EEFB00175C2E /* duck-quack-112941.mp3 */; };
 		BED9C2B32DCBD7DF00A762CA /* WhackAMoleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9C2B22DCBD7DF00A762CA /* WhackAMoleScene.swift */; };
 		BED9C2B52DCD167400A762CA /* BallRollerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9C2B42DCD167400A762CA /* BallRollerScene.swift */; };
 		BEF34B822DDB7E3500F4F817 /* PixelEmulator.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEF34B812DDB7E3500F4F817 /* PixelEmulator.ttf */; };
@@ -40,7 +39,6 @@
 		346AAB7F2DDBA01300841272 /* duckSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = duckSound.mp3; sourceTree = "<group>"; };
 		3BCAEC452DCA785A00CEDAEF /* KnotsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnotsGame.swift; sourceTree = "<group>"; };
 		BE948DA32DD4E3B700175C2E /* Barrels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barrels.swift; sourceTree = "<group>"; };
-		BE948DA52DD8EEFB00175C2E /* duck-quack-112941.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "duck-quack-112941.mp3"; sourceTree = "<group>"; };
 		BED9C2B22DCBD7DF00A762CA /* WhackAMoleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackAMoleScene.swift; sourceTree = "<group>"; };
 		BED9C2B42DCD167400A762CA /* BallRollerScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallRollerScene.swift; sourceTree = "<group>"; };
 		BEF34B812DDB7E3500F4F817 /* PixelEmulator.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PixelEmulator.ttf; sourceTree = "<group>"; };
@@ -103,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				BEF34B812DDB7E3500F4F817 /* PixelEmulator.ttf */,
-				BE948DA52DD8EEFB00175C2E /* duck-quack-112941.mp3 */,
 				346AAB452DC2954B00841272 /* Preview Assets.xcassets */,
 				346AAB7D2DDBA00400841272 /* ball-kick.mp3 */,
 				346AAB7F2DDBA01300841272 /* duckSound.mp3 */,
@@ -170,7 +167,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				346AAB462DC2954B00841272 /* Preview Assets.xcassets in Resources */,
-				BE948DA62DD8EEFB00175C2E /* duck-quack-112941.mp3 in Resources */,
 				346AAB7E2DDBA00400841272 /* ball-kick.mp3 in Resources */,
 				346AAB432DC2954B00841272 /* Assets.xcassets in Resources */,
 				BEF34B822DDB7E3500F4F817 /* PixelEmulator.ttf in Resources */,

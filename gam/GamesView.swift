@@ -10,7 +10,6 @@ import SpriteKit
 
 struct GamesView: View {
     @Environment(\.dismiss) public var dismiss;
-    @State var backButton: Bool = true;
     let buttonWidth: Double = 240;
     var knots: SKScene {
         let scene = KnotsGame(size: UIScreen.main.bounds.size);

@@ -26,7 +26,7 @@ class DuckHunt: SKScene, SKPhysicsContactDelegate {
     var angle = 0.0
     var rot = CGFloat()
     
-    
+    var lose = false;
     
     let score = SKLabelNode(text: "")
     var scoreVal = 0
@@ -61,11 +61,11 @@ class DuckHunt: SKScene, SKPhysicsContactDelegate {
         
         
         //This checks to see if the ball reaches the other side in order to show a "game over" screen
-        if((pow(ball.position.x-midX, 2)+pow(ball.position.y-midY,2)).squareRoot()>startDistance+2){
+        if((pow(ball.position.x-midX, 2)+pow(ball.position.y-midY,2)).squareRoot()>startDistance+2 && !lose){
             removeAllChildren()
             score.position = CGPoint(x: size.width/2, y: size.height/2)
 
-            
+            lose = true;
             score.fontSize = 60
             score.text="Score: \(scoreVal)"
             addChild(score)
