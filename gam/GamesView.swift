@@ -63,6 +63,9 @@ struct GamesView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                Rectangle()
+                    .fill(Color(red: 0.15, green: 0.15, blue: 0.15))
+                    .ignoresSafeArea()
                 VStack(alignment: .leading) {
                     Button {
                         dismiss();

@@ -17,6 +17,7 @@ struct ButtonModifier: ViewModifier {
     let text: String
     let buttonCol1 = Color(hue: 0.8, saturation: 1, brightness: 1)
     let buttonCol2 = Color(hue: 0.75, saturation: 0.9, brightness: 0.65)
+
     
     func body(content: Content) -> some View {
         content
@@ -52,6 +53,10 @@ struct ContentView: View {
     
     let defaults = UserDefaults.standard
     @State var cash = 0;
+    
+//    @State var blobView = BlobView(size: geometry.size)
+    
+//    let colorKey = [UIColor.blue, UIColor.red, UIColor.orange, UIColor.yellow, UIColor.green, UIColor.cyan, UIColor.purple, UIColor(red: 1, green: 0.8, blue: 0.8, alpha: 1)]
     
     var body: some View {
         NavigationView {

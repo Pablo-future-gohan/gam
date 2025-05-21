@@ -25,10 +25,17 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
     var k = 14.0
     var eyeDist = 20.0
     var pupilFac = 0.5
+    
+    var heldDownPos = CGPoint(x: 0, y: 0)
+    var holdingBlob = false
+    var dragDist = 0.0
+    
+    var defaults = UserDefaults.standard
+    let colorKey = [UIColor.blue, UIColor.red, UIColor.orange, UIColor.yellow, UIColor.green, UIColor.cyan, UIColor.purple, UIColor(red: 1, green: 0.7, blue: 0.8, alpha: 1)]
 
     override func sceneDidLoad() {
         blob = SKShapeNode(circleOfRadius: blobSize)
-        blob.fillColor = .blue
+        blob.fillColor = colorKey[((defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[]])[0].firstIndex(of: true) ?? -1) + 1]
         blob.position = CGPoint(x: size.width / 2, y: size.height / 2)
         blob.physicsBody = SKPhysicsBody(circleOfRadius: blobSize)
         blob.physicsBody?.collisionBitMask = 1
@@ -105,14 +112,35 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
+        heldDownPos = touch.location(in: self)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else {return}
         let location = touch.location(in: self)
-        let nodes = nodes(at: location)
+        dragDist = sqrt(pow(location.x - heldDownPos.x, 2) + pow(location.y - heldDownPos.y, 2))
+        if dragDist > 30 && sqrt(pow(blob.position.x - heldDownPos.x, 2) + pow(blob.position.y - heldDownPos.y, 2)) < blobSize * 2 {
+            holdingBlob = true
+        }
+        if holdingBlob {
+            blob.position = location
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        let location = touch.location(in: self)
         
-        for node in nodes {
-            if ["blob", "eye1", "eye2"].contains(node.name) {
-                blob.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -100...100), dy: CGFloat.random(in: 50...200)))
-//                blob.physicsBody?.applyTorque(CGFloat.random(in: -10...10))
+        if !holdingBlob {
+            let nodes = nodes(at: heldDownPos)
+            
+            for node in nodes {
+                if ["blob", "eye1", "eye2"].contains(node.name) {
+                    blob.physicsBody?.applyImpulse(CGVector(dx: CGFloat.random(in: -100...100), dy: CGFloat.random(in: 50...200)))
+                }
             }
+        }
+        else {
+            holdingBlob = false
         }
     }
     
@@ -128,6 +156,21 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
                                                 dy: j * -1.0 * (pupil1.position.y - blob.position.y - yOffset)))
         pupil2.physicsBody?.applyForce(CGVector(dx: j * -1.0 * (pupil2.position.x - blob.position.x + xOffset * 0.935),
                                                 dy: j * -1.0 * (pupil2.position.y - blob.position.y + yOffset)))
+        if holdingBlob {
+            blob.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            blob.physicsBody?.angularVelocity = 0
+        }
+        
+        // i could not for the life of me figure out how to have a reference to blobview and use onappear to call this only
+        // when this view is switched to so for now we're calling it every frame lmfaoo
+        updateColor()
     }
+    
+    func updateColor() {
+        blob.fillColor = colorKey[((defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[]])[0].firstIndex(of: true) ?? -1) + 1]
+    }
+    
+
+    
 
 }

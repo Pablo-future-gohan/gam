@@ -102,6 +102,8 @@ class WhackAMoleScene: SKScene {
             resetText.fontName="PixelEmulator"
             
             
+            
+            
             leave = SKSpriteNode(color: .red, size: CGSize(width: 140, height: 44))
             leave.position = CGPoint(x:self.frame.midX+100, y:self.frame.midY-150);
             leaveText.text="Home"
