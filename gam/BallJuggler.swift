@@ -12,6 +12,8 @@ import SpriteKit
 class BallJuggler: SKScene, SKPhysicsContactDelegate {
     var onGameOver: (() -> Void)?;
     
+    var background = SKSpriteNode(imageNamed: "soccer-field-background-vector-5279353")
+
     //just some variables I made
     var ball = SKSpriteNode()
     @Published var seconds=0.0
@@ -35,7 +37,9 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
     //when the scene loads the ball is made and added to the gamescene
     override func sceneDidLoad() {
         physicsWorld.contactDelegate = self
-
+        
+        background.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+        addChild(background)
         
         ball = SKSpriteNode(imageNamed:"soccer-ball-png-24")
         ball.size=CGSize(width: 100, height: 100)
@@ -241,6 +245,7 @@ class BallJuggler: SKScene, SKPhysicsContactDelegate {
         if contact.bodyA.node?.name == "Bottom" {
             timer?.invalidate()
             removeAllChildren()
+            addChild(background)
             addChild(label)
             score.position = CGPoint(x: size.width/2, y: size.height/2)
             score.fontSize = 60
