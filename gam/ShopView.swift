@@ -108,7 +108,7 @@ struct ShopView: View {
                     ZStack {
                         ForEach(0..<30) {i in
                             Button {
-                                if (selectedButton == i && selectedButton < itemNames[tab].count) {
+                                if (selectedButton == i && i < itemNames[tab].count) {
                                     if (!isPurchased[tab][i]) {
                                         if itemCosts[tab][i] <= money {
                                             isPurchased[tab][i] = true
@@ -136,7 +136,7 @@ struct ShopView: View {
                                         defaults.set(isEquipped, forKey: "IsEquipped")
                                     }
                                 }
-                                else if selectedButton < itemNames[tab].count {
+                                else if i < itemNames[tab].count {
                                     if (!isPurchased[tab][i]) {
                                         subtext = "$\(itemCosts[tab][i]) - tap again to buy"
                                     }

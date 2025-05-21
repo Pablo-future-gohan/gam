@@ -163,8 +163,8 @@ class Barrels: SKScene, SKPhysicsContactDelegate {
                 timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                     self.seconds+=1.0
                     
-                    if(self.seconds<3.0){
-                        self.barrel1.physicsBody?.velocity = CGVector(dx: 0, dy: -300)
+                    if(self.seconds<2){
+                        self.barrel1.physicsBody?.velocity = CGVector(dx: 0, dy: -700)
                     } else {
                         self.seconds=0.0
                         self.bottom = Int.random(in: 50...60)

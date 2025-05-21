@@ -29,6 +29,7 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
     var heldDownPos = CGPoint(x: 0, y: 0)
     var holdingBlob = false
     var dragDist = 0.0
+    var mousePos = CGPoint(x: 0, y: 0)
     
     var defaults = UserDefaults.standard
     let colorKey = [UIColor.blue, UIColor.red, UIColor.orange, UIColor.yellow, UIColor.green, UIColor.cyan, UIColor.purple, UIColor(red: 1, green: 0.7, blue: 0.8, alpha: 1)]
@@ -118,12 +119,10 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
         let location = touch.location(in: self)
+        mousePos = location
         dragDist = sqrt(pow(location.x - heldDownPos.x, 2) + pow(location.y - heldDownPos.y, 2))
         if dragDist > 30 && sqrt(pow(blob.position.x - heldDownPos.x, 2) + pow(blob.position.y - heldDownPos.y, 2)) < blobSize * 2 {
             holdingBlob = true
-        }
-        if holdingBlob {
-            blob.position = location
         }
     }
     
@@ -157,8 +156,7 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         pupil2.physicsBody?.applyForce(CGVector(dx: j * -1.0 * (pupil2.position.x - blob.position.x + xOffset * 0.935),
                                                 dy: j * -1.0 * (pupil2.position.y - blob.position.y + yOffset)))
         if holdingBlob {
-            blob.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            blob.physicsBody?.angularVelocity = 0
+            blob.physicsBody?.velocity = CGVector(dx: (mousePos.x - blob.position.x) * 60, dy: (mousePos.y - blob.position.y) * 60)
         }
         
         // i could not for the life of me figure out how to have a reference to blobview and use onappear to call this only
