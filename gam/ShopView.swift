@@ -211,9 +211,9 @@ struct ShopView: View {
         .ignoresSafeArea()
         .onAppear {
             // un-comment out the bottom line to reset shop options
-            defaults.set(5000, forKey: "Money")
-            defaults.set(isPurchased, forKey: "IsPurchased")
-            defaults.set(isEquipped, forKey: "IsEquipped")
+//            defaults.set(5000, forKey: "Money")
+//            defaults.set(isPurchased, forKey: "IsPurchased")
+//            defaults.set(isEquipped, forKey: "IsEquipped")
             
             money = (defaults.object(forKey: "Money") as? Int ?? 0)
             isPurchased = (defaults.object(forKey: "IsPurchased") as? [[Bool]] ?? isPurchased)
