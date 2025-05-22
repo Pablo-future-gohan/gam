@@ -136,7 +136,7 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         hat.physicsBody?.collisionBitMask = 16
         hat.physicsBody?.categoryBitMask = 16
         hat.physicsBody?.contactTestBitMask = 16
-        hat.physicsBody?.linearDamping = 30
+        hat.physicsBody?.linearDamping = 45
         hat.physicsBody?.allowsRotation = true
         hat.physicsBody?.affectedByGravity = true
         hat.name = "hat"
@@ -151,7 +151,7 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         hat2.physicsBody?.collisionBitMask = 16
         hat2.physicsBody?.categoryBitMask = 16
         hat2.physicsBody?.contactTestBitMask = 16
-        hat2.physicsBody?.linearDamping = 30
+        hat2.physicsBody?.linearDamping = 45
         hat2.physicsBody?.allowsRotation = true
         hat2.physicsBody?.affectedByGravity = true
         hat2.name = "hat"
@@ -232,7 +232,7 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         let xOffset2 = eyeDist * CGFloat(cos(blob.zRotation + (pi / 2)))
         let yOffset2 = eyeDist * CGFloat(sin(blob.zRotation + (pi / 2)))
         let j = k * 0.19
-        let l = k * 0.35
+        let l = k * 0.67
         swingLink1 = swing1.convert(CGPoint(x: 40, y: 0), to: scene!)
         swingLink2 = swing1.convert(CGPoint(x: -40, y: 0), to: scene!)
         eye.physicsBody?.applyForce(CGVector(dx: k * -1.0 * (eye.position.x - blob.position.x - xOffset),

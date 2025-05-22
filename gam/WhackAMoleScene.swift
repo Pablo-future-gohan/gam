@@ -118,7 +118,7 @@ class WhackAMoleScene: SKScene {
             self.addChild(resetText)
             
             let defaults = UserDefaults.standard;
-            defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (10 * score), forKey: "Money")
+            defaults.set((defaults.object(forKey: "Money") as? Int ?? 0) + (20 * score), forKey: "Money")
         }
         
         if (!lose) {
