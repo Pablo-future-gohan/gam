@@ -61,7 +61,7 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         swingPt2 = CGPoint(x: size.width * 0.4, y: size.height)
         
         blob = SKShapeNode(circleOfRadius: blobSize)
-        blob.fillColor = colorKey[((defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[]])[0].firstIndex(of: true) ?? -1) + 1]
+        blob.fillColor = colorKey[((defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[false]])[0].firstIndex(of: true) ?? -1) + 1]
         blob.position = CGPoint(x: size.width / 2, y: size.height / 2)
         blob.physicsBody = SKPhysicsBody(circleOfRadius: blobSize)
         blob.physicsBody?.collisionBitMask = 1
@@ -287,11 +287,11 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
     }
     
     func updateColor() {
-        blob.fillColor = colorKey[((defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[]])[0].firstIndex(of: true) ?? -1) + 1]
+        blob.fillColor = colorKey[((defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[false]])[0].firstIndex(of: true) ?? -1) + 1]
     }
     
     func updateFurniture() {
-        let isSwingEquipped = (defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[false]])[2][0]
+        let isSwingEquipped = (defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[],[],[false]])[2][0]
         swing1.isHidden = !isSwingEquipped
         swing1.physicsBody?.collisionBitMask = isSwingEquipped ? 1 : 8
         swing1.physicsBody?.categoryBitMask = isSwingEquipped ? 1 : 8
@@ -301,8 +301,8 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
     }
     
     func updateHats() {
-        hat.isHidden = !(defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[false]])[1][0]
-        hat2.isHidden = !(defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[false]])[1][1]
+        hat.isHidden = !(defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[],[false]])[1][0]
+        hat2.isHidden = !(defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[],[false,false]])[1][1]
     }
     
     func distance(_ point1: CGPoint, _ point2: CGPoint) -> CGFloat {
