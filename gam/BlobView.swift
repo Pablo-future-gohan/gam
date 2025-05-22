@@ -23,8 +23,27 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
     var pupil1 = SKShapeNode()
     var pupil2 = SKShapeNode()
     var k = 14.0
+    var k2 = 50.0
+    var swingPt1 = CGPoint(x: 0, y: 0)
+    var swingPt2 = CGPoint(x: 0, y: 0)
+    var swingLink1 = CGPoint(x: 0, y: 0)
+    var swingLink2 = CGPoint(x: 0, y: 0)
+    
+    var hat = SKSpriteNode()
+    var hatRoot = CGPoint(x: 0, y: 0)
+    
+    var hat2 = SKSpriteNode()
+    var hatRoot2 = CGPoint(x: 0, y: 0)
+    
     var eyeDist = 20.0
     var pupilFac = 0.5
+    
+    var swing1 = SKShapeNode()
+//    var rope1 = SKShapeNode()
+//    var rope2 = SKShapeNode()
+    var ropePath = CGMutablePath()
+    var line1 = SKShapeNode()
+    var line2 = SKShapeNode()
     
     var heldDownPos = CGPoint(x: 0, y: 0)
     var holdingBlob = false
@@ -33,8 +52,14 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
     
     var defaults = UserDefaults.standard
     let colorKey = [UIColor.blue, UIColor.red, UIColor.orange, UIColor.yellow, UIColor.green, UIColor.cyan, UIColor.purple, UIColor(red: 1, green: 0.7, blue: 0.8, alpha: 1)]
+    
+    let pi = 3.14159265
 
     override func sceneDidLoad() {
+        
+        swingPt1 = CGPoint(x: size.width * 0.6, y: size.height)
+        swingPt2 = CGPoint(x: size.width * 0.4, y: size.height)
+        
         blob = SKShapeNode(circleOfRadius: blobSize)
         blob.fillColor = colorKey[((defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[]])[0].firstIndex(of: true) ?? -1) + 1]
         blob.position = CGPoint(x: size.width / 2, y: size.height / 2)
@@ -45,6 +70,7 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         blob.physicsBody?.angularDamping = 0.5
         blob.name = "blob"
         addChild(blob)
+
         
         eyeRoot = CGPoint(x: size.width / 2 + eyeDist, y: size.height / 2)
         eye = SKShapeNode(circleOfRadius: eyeSize)
@@ -101,6 +127,61 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         addChild(pupil2)
         
         
+        hatRoot = CGPoint(x: size.width / 2, y: size.height / 2 + (blobSize - 10))
+        hat = SKSpriteNode(imageNamed: "hat1")
+        hat.xScale = 0.01
+        hat.yScale = 0.01
+        hat.position = hatRoot
+        hat.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 10, height: 10))
+        hat.physicsBody?.collisionBitMask = 16
+        hat.physicsBody?.categoryBitMask = 16
+        hat.physicsBody?.contactTestBitMask = 16
+        hat.physicsBody?.linearDamping = 30
+        hat.physicsBody?.allowsRotation = true
+        hat.physicsBody?.affectedByGravity = true
+        hat.name = "hat"
+        addChild(hat)
+        
+        hatRoot2 = CGPoint(x: size.width / 2, y: size.height / 2 + (blobSize - 10))
+        hat2 = SKSpriteNode(imageNamed: "hat2")
+        hat2.xScale = 0.1
+        hat2.yScale = 0.1
+        hat2.position = hatRoot
+        hat2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 10, height: 10))
+        hat2.physicsBody?.collisionBitMask = 16
+        hat2.physicsBody?.categoryBitMask = 16
+        hat2.physicsBody?.contactTestBitMask = 16
+        hat2.physicsBody?.linearDamping = 30
+        hat2.physicsBody?.allowsRotation = true
+        hat2.physicsBody?.affectedByGravity = true
+        hat2.name = "hat"
+        addChild(hat2)
+        
+        swing1 = SKShapeNode(rectOf: CGSize(width: 100, height: 10))
+        swing1.fillColor = .brown
+        swing1.position = CGPoint(x: 200, y: size.height - 500)
+        swing1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 100, height: 10))
+        swing1.physicsBody?.collisionBitMask = 1
+        swing1.physicsBody?.categoryBitMask = 1
+        swing1.physicsBody?.contactTestBitMask = 1
+        swing1.physicsBody?.linearDamping = 0.6
+        swing1.physicsBody?.angularDamping = 2.5
+        swing1.physicsBody?.mass = 2
+        addChild(swing1)
+        
+        swingLink1 = swing1.convert(CGPoint(x: 40, y: 0), to: scene!)
+        swingLink2 = swing1.convert(CGPoint(x: -40, y: 0), to: scene!)
+        line1 = SKShapeNode(path: ropePath)
+        line1.strokeColor = .brown
+        line1.lineWidth = 5
+        addChild(line1)
+        
+        line2 = SKShapeNode(path: ropePath)
+        line2.strokeColor = .brown
+        line2.lineWidth = 5
+        addChild(line2)
+        
+        
         edge = SKSpriteNode()
         edge.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         edge.physicsBody?.collisionBitMask = 1
@@ -108,6 +189,8 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         edge.physicsBody?.contactTestBitMask = 1
         
         addChild(edge)
+        
+        
         
     }
     
@@ -146,7 +229,12 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         let xOffset = eyeDist * CGFloat(cos(blob.zRotation))
         let yOffset = eyeDist * CGFloat(sin(blob.zRotation))
+        let xOffset2 = eyeDist * CGFloat(cos(blob.zRotation + (pi / 2)))
+        let yOffset2 = eyeDist * CGFloat(sin(blob.zRotation + (pi / 2)))
         let j = k * 0.19
+        let l = k * 0.35
+        swingLink1 = swing1.convert(CGPoint(x: 40, y: 0), to: scene!)
+        swingLink2 = swing1.convert(CGPoint(x: -40, y: 0), to: scene!)
         eye.physicsBody?.applyForce(CGVector(dx: k * -1.0 * (eye.position.x - blob.position.x - xOffset),
                                              dy: k * -1.0 * (eye.position.y - blob.position.y - yOffset)))
         eye2.physicsBody?.applyForce(CGVector(dx: k * -1.0 * (eye2.position.x - blob.position.x + xOffset),
@@ -155,6 +243,38 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
                                                 dy: j * -1.0 * (pupil1.position.y - blob.position.y - yOffset)))
         pupil2.physicsBody?.applyForce(CGVector(dx: j * -1.0 * (pupil2.position.x - blob.position.x + xOffset * 0.935),
                                                 dy: j * -1.0 * (pupil2.position.y - blob.position.y + yOffset)))
+        hat.physicsBody?.applyForce(CGVector(dx: l * -1.0 * (hat.position.x - blob.position.x - xOffset2 * 2),
+                                                dy: l * -1.0 * (hat.position.y - blob.position.y - yOffset2 * 2)))
+        hat2.physicsBody?.applyForce(CGVector(dx: l * -1.0 * (hat.position.x - blob.position.x - xOffset2 * 2),
+                                                dy: l * -1.0 * (hat.position.y - blob.position.y - yOffset2 * 2)))
+        hat.zRotation = blob.zRotation
+        hat2.zRotation = blob.zRotation
+        // temporarily testing w/o exponent for the force so for now i just have it set as 1
+        swing1.physicsBody?.applyForce(CGVector(dx: ((swingLink1.x - swingPt1.x)/distance(swingLink1, swingPt1)) * pow(500 - max(500,                                                 distance(swingLink1, swingPt1)), 1) * k2,
+                                                dy: ((swingLink1.y - swingPt1.y)/distance(swingLink2, swingPt2)) * pow(500 - max(500, distance(swingLink1, swingPt1)), 1) * k2), at: swingLink1)
+        swing1.physicsBody?.applyForce(CGVector(dx: ((swingLink2.x - swingPt2.x)/distance(swingLink2, swingPt2)) * pow(500 - max(500,                                                 distance(swingLink2, swingPt2)), 1) * k2,
+                                                dy: ((swingLink2.y - swingPt2.y)/distance(swingLink2, swingPt2)) * pow(500 - max(500, distance(swingLink2, swingPt2)), 1) * k2), at: swingLink2)
+//        print(distance(swingLink2, swingPt2))
+//        print(((swingLink1.y - swingPt1.y)/distance(swingLink2, swingPt2)) * (500 - max(500, distance(swingLink1, swingPt1))))
+
+
+//        drawLine(from: swingLink1, to: swingPt1)
+//        drawLine(from: swingLink2, to: swingPt2)
+        
+        ropePath = CGMutablePath()
+        ropePath.move(to: swingLink1)
+        ropePath.addLine(to: swingPt1)
+        line1.path = ropePath
+        ropePath = CGMutablePath()
+        ropePath.move(to: swingLink2)
+        ropePath.addLine(to: swingPt2)
+        line2.path = ropePath
+
+//        ropePath.move(to: swingLink2)
+//        ropePath.addLine(to: swingPt2)
+//        addChild(line)
+        
+        
         if holdingBlob {
             blob.physicsBody?.velocity = CGVector(dx: (mousePos.x - blob.position.x) * 60, dy: (mousePos.y - blob.position.y) * 60)
         }
@@ -162,10 +282,31 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         // i could not for the life of me figure out how to have a reference to blobview and use onappear to call this only
         // when this view is switched to so for now we're calling it every frame lmfaoo
         updateColor()
+        updateFurniture()
+        updateHats()
     }
     
     func updateColor() {
         blob.fillColor = colorKey[((defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[]])[0].firstIndex(of: true) ?? -1) + 1]
+    }
+    
+    func updateFurniture() {
+        let isSwingEquipped = (defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[false]])[2][0]
+        swing1.isHidden = !isSwingEquipped
+        swing1.physicsBody?.collisionBitMask = isSwingEquipped ? 1 : 8
+        swing1.physicsBody?.categoryBitMask = isSwingEquipped ? 1 : 8
+        swing1.physicsBody?.contactTestBitMask = isSwingEquipped ? 1 : 8
+        line1.isHidden = !isSwingEquipped
+        line2.isHidden = !isSwingEquipped
+    }
+    
+    func updateHats() {
+        hat.isHidden = !(defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[false]])[1][0]
+        hat2.isHidden = !(defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? [[false]])[1][1]
+    }
+    
+    func distance(_ point1: CGPoint, _ point2: CGPoint) -> CGFloat {
+        return sqrt(pow(point1.x - point2.x, 2) + pow(point1.y - point2.y, 2))
     }
     
 

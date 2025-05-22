@@ -30,7 +30,7 @@ struct ShopView: View {
     
     @State var itemNames: [[String]] = [
         ["Red", "Orange", "Yellow", "Green", "Cyan", "Purple", "Pink"],
-        ["Hat", "Chain"],
+        ["Party Hat", "Top Hat"],
         ["Rope Swing", "Chair"],
     ]
     
@@ -169,7 +169,7 @@ struct ShopView: View {
                                                 .foregroundStyle(.white)
                                                 .offset(y: -30)
                                             Circle()
-                                                .fill(colorKey[i])
+                                                .fill(tab == 0 ? colorKey[i] : Color.gray)
                                                 .opacity(0.5)
                                                 .overlay(
                                                     Circle().stroke(.white, lineWidth: 3)
@@ -210,8 +210,8 @@ struct ShopView: View {
         }
         .ignoresSafeArea()
         .onAppear {
-            // un-comment out the bottom line to reset shop options
-//            defaults.set(5000, forKey: "Money")
+//             un-comment out the bottom line to reset shop options
+//            defaults.set(1000, forKey: "Money")
 //            defaults.set(isPurchased, forKey: "IsPurchased")
 //            defaults.set(isEquipped, forKey: "IsEquipped")
             

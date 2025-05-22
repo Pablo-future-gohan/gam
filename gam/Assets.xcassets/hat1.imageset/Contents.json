@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "[CITYPNG.COM]Yellow And Red Birthday Party Hat PNG - 4000x4000.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
