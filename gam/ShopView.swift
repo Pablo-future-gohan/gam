@@ -217,7 +217,7 @@ struct ShopView: View {
             
             money = (defaults.object(forKey: "Money") as? Int ?? 0)
             isPurchased = (defaults.object(forKey: "IsPurchased") as? [[Bool]] ?? isPurchased)
-            isEquipped = (defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? isPurchased)
+            isEquipped = (defaults.object(forKey: "IsEquipped") as? [[Bool]] ?? isEquipped)
         }
     }
     
