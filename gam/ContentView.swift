@@ -118,18 +118,3 @@ struct ContentView: View {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Peter: 83
-// Daniel: 117
