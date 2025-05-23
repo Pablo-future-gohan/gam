@@ -113,3 +113,23 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Peter: 83
+// Daniel: 117

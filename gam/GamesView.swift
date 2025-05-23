@@ -66,19 +66,44 @@ struct GamesView: View {
                 Rectangle()
                     .fill(Color(red: 0.15, green: 0.15, blue: 0.15))
                     .ignoresSafeArea()
-                VStack(alignment: .leading) {
-                    Button {
-                        dismiss();
-                    } label: {
-                        Rectangle()
-                            .fill(.clear)
+                HStack{
+                    VStack(alignment: .leading) {
+                        Button {
+                            dismiss();
+                        } label: {
+                            Rectangle()
+                                .fill(.clear)
+                        }
+                        .buttonMod(0, 0, 100, 30, "Back")
+                        Spacer()
+                            .frame(maxWidth: .infinity)
                     }
-                    .buttonMod(0, 0, 100, 30, "Back")
-                    Spacer()
-                        .frame(maxWidth: .infinity)
+                    .padding(20)
+                    .ignoresSafeArea()
+                    
+                    
+                    
+                    //Button that leads to credits
+                    VStack(alignment: .trailing) {
+                        NavigationLink {
+                            
+                            CreditsView()
+                            
+                        } label: {
+                            Rectangle()
+                                .fill(.clear)
+                        }
+                        .buttonMod(0, 0, 100, 30, "Credits")
+                        Spacer()
+                            .frame(maxWidth: .infinity)
+                    }
+                    .padding(20)
+                    .ignoresSafeArea()
                 }
-                .padding(20)
-                .ignoresSafeArea()
+                
+                
+                
+                
                 VStack {
                     NavigationLink {
                         SpriteView(scene: knots)
