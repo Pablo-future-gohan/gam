@@ -93,7 +93,7 @@ struct ContentView: View {
                     }
                     Spacer()
 //                    Button {
-//                        defaults.set(0, forKey: "Money")
+//                        defaults.set(100000, forKey: "Money")
 //                        cash = (defaults.object(forKey: "Money") as? Int ?? 0)
 //                    } label: {
 //                        Rectangle().frame(height: 50)

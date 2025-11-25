@@ -17,7 +17,7 @@ struct ShopView: View {
     var spacing: CGFloat = 10
     let numButtons = 30
     
-    let colorKey = [Color.red, Color.orange, Color.yellow, Color.green, Color.cyan, Color.purple, Color(red: 1, green: 0.7, blue: 0.8)]
+    let colorKey = [Color.red, Color.orange, Color.yellow, Color.green, Color.cyan, Color.purple, Color(red: 1, green: 0.7, blue: 0.8), Color.brown, Color.gray]
     
     let defaults = UserDefaults.standard
     @State var subtext: String = " "
@@ -29,25 +29,25 @@ struct ShopView: View {
     
     
     @State var itemNames: [[String]] = [
-        ["Red", "Orange", "Yellow", "Green", "Cyan", "Purple", "Pink"],
+        ["Red", "Orange", "Yellow", "Green", "Cyan", "Purple", "Pink", "Brown", "Gray"],
         ["Party Hat", "Top Hat"],
         ["Rope Swing", "Chair"],
     ]
     
     @State var itemCosts: [[Int]] = [
-        [500, 1000, 1500, 2000, 2500, 3000, 3500],
+        [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500],
         [2500, 5000],
         [10000, 15000],
     ]
     
     @State var isPurchased: [[Bool]] = [
-        Array(repeating: false, count: 7),
+        Array(repeating: false, count: 9),
         Array(repeating: false, count: 2),
         Array(repeating: false, count: 2)
     ]
     
     @State var isEquipped: [[Bool]] = [
-        Array(repeating: false, count: 7),
+        Array(repeating: false, count: 9),
         Array(repeating: false, count: 2),
         Array(repeating: false, count: 2)
     ]

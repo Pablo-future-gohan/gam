@@ -51,7 +51,7 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
     var mousePos = CGPoint(x: 0, y: 0)
     
     var defaults = UserDefaults.standard
-    let colorKey = [UIColor.blue, UIColor.red, UIColor.orange, UIColor.yellow, UIColor.green, UIColor.cyan, UIColor.purple, UIColor(red: 1, green: 0.7, blue: 0.8, alpha: 1)]
+    let colorKey = [UIColor.blue, UIColor.red, UIColor.orange, UIColor.yellow, UIColor.green, UIColor.cyan, UIColor.purple, UIColor(red: 1, green: 0.7, blue: 0.8, alpha: 1), UIColor.brown, UIColor.lightGray]
     
     let pi = 3.14159265
 
@@ -68,6 +68,9 @@ class BlobView: SKScene, SKPhysicsContactDelegate {
         blob.physicsBody?.categoryBitMask = 1
         blob.physicsBody?.contactTestBitMask = 1
         blob.physicsBody?.angularDamping = 0.5
+        
+        blob.physicsBody?.usesPreciseCollisionDetection = true
+        
         blob.name = "blob"
         addChild(blob)
 
