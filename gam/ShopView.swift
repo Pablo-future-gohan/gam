@@ -86,27 +86,36 @@ struct ShopView: View {
                 Rectangle()
                     .stroke(.white, lineWidth: 3)
                     .frame(width: 350, height: 5)
-                HStack {
-                    ForEach(0..<ShopTabs.count, id: \.self) { i in
-                        Button {
-                            tab = i
-                            selectedButton = -1
-                            subtext = " "
-                        }
-                        label: {
-                            ZStack {
-                                Rectangle()
-                                    .stroke(.white, lineWidth: 3)
-                                    .frame(width: 100, height: 65)
-                                    .padding(3)
-                                Text(ShopTabs[i])
-                                    .frame(width: 100, height: 65)
-                                    .foregroundStyle(.white)
-                                    .font(.custom("Chalkduster", size: 22))
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 0) {
+                        ForEach(0..<ShopTabs.count, id: \.self) { i in
+                            Button {
+                                tab = i
+                                selectedButton = -1
+                                subtext = " "
+                            } label: {
+                                ZStack {
+                                    Rectangle()
+                                        //.stroke(.white, lineWidth: 3)
+                                        .fill(tab == i ? Color.white.opacity(0.2) : .clear)
+                                        .frame(width: 100, height: 65)
+                                        .overlay(
+                                                Rectangle()
+                                                    .stroke(.white, lineWidth: 3)
+                                            )
+
+                                    Text(ShopTabs[i])
+                                        .foregroundStyle(.white)
+                                        .font(.custom("Chalkduster", size: 22))
+                                }
                             }
                         }
                     }
+                    .padding(.horizontal, 5)
                 }
+                .frame(width: 350, height: 75)
+                
+                
                 Rectangle()
                     .stroke(.white, lineWidth: 3)
                     .frame(width: 350, height: 5)

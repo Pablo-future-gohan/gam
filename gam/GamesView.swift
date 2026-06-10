@@ -60,6 +60,7 @@ struct GamesView: View {
         }
         return scene;
     } // thanks chatgpt
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -179,6 +180,15 @@ struct GamesView: View {
                     }
                     .buttonMod(0,0,buttonWidth,30,"Duck Hunt")
                     .padding(5)
+                    NavigationLink {
+                        DinoGameView()
+                    } label: {
+                        Rectangle()
+                            .fill(.clear)
+                    }
+                    .buttonMod(0,0,buttonWidth,30,"Runner")
+                    .padding(5)
+
                     
                 }
             }

@@ -17,6 +17,8 @@
 		346AAB7E2DDBA00400841272 /* ball-kick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 346AAB7D2DDBA00400841272 /* ball-kick.mp3 */; };
 		346AAB802DDBA01300841272 /* duckSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 346AAB7F2DDBA01300841272 /* duckSound.mp3 */; };
 		3BCAEC462DCA785A00CEDAEF /* KnotsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAEC452DCA785A00CEDAEF /* KnotsGame.swift */; };
+		BE2F78FA2FD951AA0030FDF4 /* MoneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2F78F92FD951A70030FDF4 /* MoneyView.swift */; };
+		BE2F79002FD9573D0030FDF4 /* DinoGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2F78FF2FD9573D0030FDF4 /* DinoGameView.swift */; };
 		BE948DA42DD4E3B700175C2E /* Barrels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE948DA32DD4E3B700175C2E /* Barrels.swift */; };
 		BED9C2B32DCBD7DF00A762CA /* WhackAMoleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9C2B22DCBD7DF00A762CA /* WhackAMoleScene.swift */; };
 		BED9C2B52DCD167400A762CA /* BallRollerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9C2B42DCD167400A762CA /* BallRollerScene.swift */; };
@@ -40,6 +42,8 @@
 		346AAB7D2DDBA00400841272 /* ball-kick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ball-kick.mp3"; sourceTree = "<group>"; };
 		346AAB7F2DDBA01300841272 /* duckSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = duckSound.mp3; sourceTree = "<group>"; };
 		3BCAEC452DCA785A00CEDAEF /* KnotsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnotsGame.swift; sourceTree = "<group>"; };
+		BE2F78F92FD951A70030FDF4 /* MoneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyView.swift; sourceTree = "<group>"; };
+		BE2F78FF2FD9573D0030FDF4 /* DinoGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinoGameView.swift; sourceTree = "<group>"; };
 		BE948DA32DD4E3B700175C2E /* Barrels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barrels.swift; sourceTree = "<group>"; };
 		BED9C2B22DCBD7DF00A762CA /* WhackAMoleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackAMoleScene.swift; sourceTree = "<group>"; };
 		BED9C2B42DCD167400A762CA /* BallRollerScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallRollerScene.swift; sourceTree = "<group>"; };
@@ -87,9 +91,11 @@
 				346AAB3E2DC2954900841272 /* gamApp.swift */,
 				BEF34B832DDCECD700F4F817 /* AppDelegate.swift */,
 				346AAB402DC2954900841272 /* ContentView.swift */,
+				BE2F78F92FD951A70030FDF4 /* MoneyView.swift */,
 				346AAB4E2DC29A0E00841272 /* GamesView.swift */,
 				BEF34B872DE04B3F00F4F817 /* CreditsView.swift */,
 				BE948DA32DD4E3B700175C2E /* Barrels.swift */,
+				BE2F78FF2FD9573D0030FDF4 /* DinoGameView.swift */,
 				346AAB6E2DD2615D00841272 /* DuckHunt.swift */,
 				BED9C2B42DCD167400A762CA /* BallRollerScene.swift */,
 				BED9C2B22DCBD7DF00A762CA /* WhackAMoleScene.swift */,
@@ -187,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE2F78FA2FD951AA0030FDF4 /* MoneyView.swift in Sources */,
 				346AAB4F2DC29A0E00841272 /* GamesView.swift in Sources */,
 				BEF34B882DE04B3F00F4F817 /* CreditsView.swift in Sources */,
 				346AAB4D2DC2984800841272 /* BallJuggler.swift in Sources */,
@@ -198,6 +205,7 @@
 				EBF210F62DCE6D9600C79BE2 /* StimOut.swift in Sources */,
 				BEF34B842DDCECD700F4F817 /* AppDelegate.swift in Sources */,
 				BED9C2B52DCD167400A762CA /* BallRollerScene.swift in Sources */,
+				BE2F79002FD9573D0030FDF4 /* DinoGameView.swift in Sources */,
 				346AAB6F2DD2615D00841272 /* DuckHunt.swift in Sources */,
 				346AAB3F2DC2954900841272 /* gamApp.swift in Sources */,
 				BE948DA42DD4E3B700175C2E /* Barrels.swift in Sources */,

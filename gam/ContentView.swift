@@ -77,9 +77,14 @@ struct ContentView: View {
                         }
                         .buttonMod(0, 0, 105, 90, "Shop")
                         Spacer()
-                        Rectangle()
-                            .fill(.clear)
-                            .buttonMod(0, 0, 120, 50, "$\(cash)")
+                        NavigationLink {
+                            MoneyView()
+                                .navigationBarBackButtonHidden(true)
+                        } label: {
+                            Rectangle()
+                                .fill(.clear)
+                        }
+                        .buttonMod(0, 0, 120, 50, "$\(cash)")
                         Spacer()
                         NavigationLink {
                             GamesView()
