@@ -155,6 +155,8 @@ struct GamesView: View {
                     }
                     .buttonMod(0,0,buttonWidth,30,"Ball Roller")
                     .padding(5)
+                    
+                    /*
                     NavigationLink {
                         SpriteView(scene: barrels)
                             .ignoresSafeArea()
@@ -165,6 +167,8 @@ struct GamesView: View {
                     }
                     .buttonMod(0,0,buttonWidth,30,"Barrels")
                     .padding(5)
+                    */
+                    
                     NavigationLink {
                         SpriteView(scene: duckHunt)
                             .ignoresSafeArea()
@@ -175,6 +179,7 @@ struct GamesView: View {
                     }
                     .buttonMod(0,0,buttonWidth,30,"Duck Hunt")
                     .padding(5)
+                    
                 }
             }
         }

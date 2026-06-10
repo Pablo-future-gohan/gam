@@ -52,7 +52,7 @@ struct CreditsView: View {
             
             //The credits of us who worked on the app
             VStack{
-                Text("3 Kings Incorporated")
+                Text("Jester-Ace-King Inqlumpulated")
                     .font(.custom("chalkduster", size: 30))
                     .foregroundStyle(.white)
                 

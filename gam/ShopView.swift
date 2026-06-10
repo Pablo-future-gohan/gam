@@ -24,7 +24,7 @@ struct ShopView: View {
     @State var money = 0;
     
     
-    @State var ShopTabs = ["Colors", "Hats", "Decor"]
+    @State var ShopTabs = ["Colors", "Hats", "Decor", "Pets"]
     // tried to make all the awways one big array but after several type-checking errors caved on making a bunch of 2d arrays instead of a big 3d one
     
     
@@ -32,24 +32,30 @@ struct ShopView: View {
         ["Red", "Orange", "Yellow", "Green", "Cyan", "Purple", "Pink", "Brown", "Gray"],
         ["Party Hat", "Top Hat"],
         ["Rope Swing", "Chair"],
+        ["Bull", "Iguana"]
     ]
     
     @State var itemCosts: [[Int]] = [
         [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500],
         [2500, 5000],
         [10000, 15000],
+        [1000000, 20000]
     ]
     
     @State var isPurchased: [[Bool]] = [
         Array(repeating: false, count: 9),
         Array(repeating: false, count: 2),
+        Array(repeating: false, count: 2),
         Array(repeating: false, count: 2)
+
     ]
     
     @State var isEquipped: [[Bool]] = [
         Array(repeating: false, count: 9),
         Array(repeating: false, count: 2),
+        Array(repeating: false, count: 2),
         Array(repeating: false, count: 2)
+
     ]
     
     var body: some View {
@@ -81,7 +87,7 @@ struct ShopView: View {
                     .stroke(.white, lineWidth: 3)
                     .frame(width: 350, height: 5)
                 HStack {
-                    ForEach(0..<3) { i in
+                    ForEach(0..<ShopTabs.count, id: \.self) { i in
                         Button {
                             tab = i
                             selectedButton = -1
